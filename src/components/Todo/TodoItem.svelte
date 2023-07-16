@@ -85,7 +85,7 @@
           {/if}
           {#if !todo.completed}
             <div class="add-task actions">
-              <input type="text" placeholder="Add task..." on:keyup={addTask} />
+              <input type="text" class="w-full" placeholder="Add task..." on:keyup={addTask} />
             </div>
           {/if}
         {/if}
@@ -126,7 +126,7 @@
 
   .todo-item .todo-text {
     background-color: transparent;
-    color: var(--color-gray-6);
+    color: var(--color-light);
     font-size: inherit;
     border: none;
     width: 100%;
@@ -144,6 +144,10 @@
   }
 
   .todo-item.todo-item.completed {
+    color: var(--color-gray-6);
+  }
+
+  .todo-item.todo-item.completed .todo-text {
     color: var(--color-gray-6);
   }
 

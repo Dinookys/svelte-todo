@@ -38,7 +38,7 @@
 
 <section class="wrapper-todos">
   <div>
-    <h3 class="title">{$todoStore.activeTodoGroup.name}</h3>
+    <h3 class="color-light">{$todoStore.activeTodoGroup.name}</h3>
     <div class="actions">
       <ToolTip
         position={Positions.BottomRight}
@@ -68,7 +68,7 @@
           on:update={(event) => actions.updateTodo(event.detail)}
         />
       {/each}
-      {#if totalTodos === totalCompletedTodos}
+      {#if totalTodos === 0}
         <div class="no-todos">No todos</div>
       {/if}
     </div>
