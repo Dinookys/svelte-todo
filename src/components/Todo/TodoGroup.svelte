@@ -21,7 +21,7 @@
 
 <style>
   button {
-    border: 1px solid var(--color-bg-gray-3);
+    border: 1px solid var(--color-gray-3);
     background-color: transparent;
     text-transform: uppercase;
     font-weight: bold;
@@ -31,7 +31,7 @@
   }
 
   button.active {
-    background-color: var(--color-bg-gray-3);
+    background-color: var(--color-gray-3);
   }
 
   .todo-group {

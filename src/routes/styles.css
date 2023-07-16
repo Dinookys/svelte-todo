@@ -5,29 +5,31 @@
 :root {
 	--font-body: 'Roboto', sans-serif;
 	--font-mono: 'Fira Mono', monospace;
-	--color-bg-gray: #1a1a1a;
-	--color-bg-gray-2: #2a2a2a;
-	--color-bg-gray-3: #3a3a3a;
-	--color-bg-gray-4: #4a4a4a;
-	--color-bg-gray-5: #5a5a5a;
-	--color-bg-gray-6: #6a6a6a;
-	--color-bg-gray-7: #7a7a7a;
-	--color-bg-green: #2ecc71;
-	--color-bg-green-hover: #27ae60;
-	--color-bg-blue: #3498db;
-	--color-bg-blue-hover: #3ea4e7;
-	--color-bg-purple: #8e44ad;
-	--color-bg-purple-hover: #9b59b6;
-	--color-bg-red: #c0392b;
-	--color-bg-red-hover: #e74c3c;
-	--color-bg-dark: hsl(0, 0%, 0%);
-	--color-bg-dark-hover: hsl(0, 0%, 6%);
+	--color-gray: #1a1a1a;
+	--color-gray-2: #2a2a2a;
+	--color-gray-3: #3a3a3a;
+	--color-gray-4: #4a4a4a;
+	--color-gray-5: #5a5a5a;
+	--color-gray-6: #6a6a6a;
+	--color-gray-7: #7a7a7a;
+	--color-green: #2ecc71;
+	--color-green-hover: #27ae60;
+	--color-blue: #3498db;
+	--color-blue-hover: #3ea4e7;
+	--color-purple: #8e44ad;
+	--color-purple-hover: #9b59b6;
+	--color-red: #c0392b;
+	--color-red-hover: #e74c3c;
+	--color-dark: hsl(0, 0%, 0%);
+	--color-dark-hover: hsl(0, 0%, 6%);
 	--color-text: rgba(0, 0, 0, 0.7);
 	--color-main: #788cde;
 	--color-main-hover: #8399f1;
+	--color-light: #e1e1e1;
 	--column-width: 42rem;
 	--column-margin-top: 4rem;
 	--radius-sm: 0.25rem;
+	--sidebarWidth: 20rem;
 	color: var(--color-main);
 	font-size: 0.80rem;
 }
@@ -40,7 +42,7 @@
 body {
 	margin: 0;
 	min-height: 100vh;
-	background-color: var(--color-bg-gray);
+	background-color: var(--color-gray);
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
@@ -56,17 +58,17 @@ body {
 }
 
 .actions input {
-	background-color: var(--color-bg-gray-2);
+	background-color: var(--color-gray-2);
 	color: var(--color-main);
 	border: 0;
 	padding-block: 10px;
 	padding-inline: 20px;
 	border-radius: var(--radius-sm);
-	outline: none;	
+	outline: none;
 }
 
 .actions input:focus {
-	color: var(--color-bg-gray-7);
+	color: var(--color-gray-7);
 }
 
 .actions input::placeholder {
@@ -85,35 +87,35 @@ body {
 }
 
 .bg-dark {
-	background-color: var(--color-bg-dark) !important;
+	background-color: var(--color-dark) !important;
 }
 
 .bg-gray {
-	background-color: var(--color-bg-gray) !important;
+	background-color: var(--color-gray) !important;
 }
 
 .bg-gray-2 {
-	background-color: var(--color-bg-gray-2) !important;
+	background-color: var(--color-gray-2) !important;
 }
 
 .bg-gray-3 {
-	background-color: var(--color-bg-gray-3) !important;
+	background-color: var(--color-gray-3) !important;
 }
 
 .bg-gray-4 {
-	background-color: var(--color-bg-gray-4) !important;
+	background-color: var(--color-gray-4) !important;
 }
 
 .bg-gray-5 {
-	background-color: var(--color-bg-gray-5) !important;
+	background-color: var(--color-gray-5) !important;
 }
 
 .bg-gray-6 {
-	background-color: var(--color-bg-gray-6) !important;
+	background-color: var(--color-gray-6) !important;
 }
 
 .bg-gray-7 {
-	background-color: var(--color-bg-gray-7) !important;
+	background-color: var(--color-gray-7) !important;
 }
 
 .bg-white {
@@ -121,19 +123,23 @@ body {
 }
 
 .bg-green {
-	background-color: var(--color-bg-green) !important;
+	background-color: var(--color-green) !important;
 }
 
 .bg-blue {
-	background-color: var(--color-bg-blue) !important;
+	background-color: var(--color-blue) !important;
 }
 
 .bg-purple {
-	background-color: var(--color-bg-purple) !important;
+	background-color: var(--color-purple) !important;
 }
 
 .bg-red {
-	background-color: var(--color-bg-red) !important;
+	background-color: var(--color-red) !important;
+}
+
+.bg-light {
+	background-color: var(--color-light) !important;
 }
 
 .color-primary {
@@ -141,55 +147,59 @@ body {
 }
 
 .color-dark {
-	color: var(--color-bg-dark) !important;
+	color: var(--color-dark) !important;
 }
 
 .color-green {
-	color: var(--color-bg-green) !important;
+	color: var(--color-green) !important;
 }
 
 .color-blue {
-	color: var(--color-bg-blue) !important;
+	color: var(--color-blue) !important;
 }
 
 .color-purple {
-	color: var(--color-bg-purple) !important;
+	color: var(--color-purple) !important;
 }
 
 .color-red {
-	color: var(--color-bg-red) !important;
+	color: var(--color-red) !important;
 }
 
 .color-white {
 	color: white !important;
 }
 
+.color-light {
+	color: var(--color-light) !important;
+}
+
 .color-gray {
-	color: var(--color-bg-gray) !important;
+	color: var(--color-gray) !important;
 }
 
 .color-gray-2 {
-	color: var(--color-bg-gray-2) !important;
+	color: var(--color-gray-2) !important;
 }
 
 .color-gray-3 {
-	color: var(--color-bg-gray-3) !important;
+	color: var(--color-gray-3) !important;
 }
 
 .color-gray-4 {
-	color: var(--color-bg-gray-4) !important;
+	color: var(--color-gray-4) !important;
 }
 
 .color-gray-5 {
-	color: var(--color-bg-gray-5) !important;
+	color: var(--color-gray-5) !important;
 }
 
 .color-gray-6 {
-	color: var(--color-bg-gray-6) !important;
+	color: var(--color-gray-6) !important;
 }
 
 .color-gray-7 {
-	color: var(--color-bg-gray-7) !important;
+	color: var(--color-gray-7) !important;
 }
 
 [class*="btn-"] {
@@ -201,7 +211,7 @@ body {
 .btn-primary {
 	background-color: var(--color-main);
 	border: 1px solid var(--color-main);
-	color: white;
+	color: var(--color-light);
 }
 
 .btn-primary:hover {
@@ -210,7 +220,7 @@ body {
 
 .btn-light {
 	background-color: #e1e1e1;
-	color: var(--color-bg-gray);
+	color: var(--color-gray);
 	border: 1px solid #e1e1e1;
 }
 
@@ -219,43 +229,43 @@ body {
 }
 
 .btn-dark {
-	background-color: var(--color-bg-dark);
-	border: 1px solid var(--color-bg-dark);
-	color: white;
+	background-color: var(--color-dark);
+	border: 1px solid var(--color-dark);
+	color: var(--color-light);
 }
 
 .btn-dark:hover {
-	background-color: var(--color-bg-dark-hover);
+	background-color: var(--color-dark-hover);
 }
 
 .btn-green {
-	background-color: var(--color-bg-green);
-	border: 1px solid var(--color-bg-green);
-	color: white;
+	background-color: var(--color-green);
+	border: 1px solid var(--color-green);
+	color: var(--color-light);
 }
 
 .btn-green:hover {
-	background-color: var(--color-bg-green-hover);
+	background-color: var(--color-green-hover);
 }
 
 .btn-blue {
-	background-color: var(--color-bg-blue);
-	color: white;
-	border: 1px solid var(--color-bg-blue);
+	background-color: var(--color-blue);
+	color: var(--color-light);
+	border: 1px solid var(--color-blue);
 }
 
 .btn-blue:hover {
-	background-color: var(--color-bg-blue-hover);
+	background-color: var(--color-blue-hover);
 }
 
 .btn-red {
-	background-color: var(--color-bg-red);
-	color: white;
-	border: 1px solid var(--color-bg-red);
+	background-color: var(--color-red);
+	color: var(--color-light);
+	border: 1px solid var(--color-red);
 }
 
 .btn-red:hover {
-	background-color: var(--color-bg-red-hover);
+	background-color: var(--color-red-hover);
 }
 
 .w-full {
@@ -272,4 +282,14 @@ body {
 
 .flex-0 {
 	flex: 0;
+}
+
+kbd {
+	font-family: var(--font-mono);
+	font-weight: 600;
+	text-transform: uppercase;
+	background-color: var(--color-gray);
+	color: var(--color-gray-7);
+	padding: 3px;
+	border-radius: var(--radius-sm);
 }

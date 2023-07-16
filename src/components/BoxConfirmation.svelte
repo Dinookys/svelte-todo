@@ -77,7 +77,7 @@
 
   .box-confirmation-content {
     box-shadow: rgba(0, 0, 0, 0.4);
-    background-color: var(--color-bg-gray-4);
+    background-color: var(--color-gray-4);
     border-radius: 8px;
     min-width: 12rem;
     max-width: 30rem;

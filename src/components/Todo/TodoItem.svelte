@@ -109,7 +109,7 @@
 
 <style>
   .todo-item {
-    background-color: var(--color-bg-gray-3);
+    background-color: var(--color-gray-3);
     border-radius: 5px;
     min-height: 50px;
     display: flex;
@@ -126,7 +126,7 @@
 
   .todo-item .todo-text {
     background-color: transparent;
-    color: var(--color-bg-gray-6);
+    color: var(--color-gray-6);
     font-size: inherit;
     border: none;
     width: 100%;
@@ -140,11 +140,11 @@
   }
 
   .todo-item.completed {
-    background-color: var(--color-bg-gray-4);
+    background-color: var(--color-gray-4);
   }
 
   .todo-item.todo-item.completed {
-    color: var(--color-bg-gray-6);
+    color: var(--color-gray-6);
   }
 
   .todo-item.todo-item.completed .todo-text > .text {
@@ -166,7 +166,7 @@
   }
 
   .todo-item .tasks ul {
-    background-color: var(--color-bg-gray-2);
+    background-color: var(--color-gray-2);
     color: var(--color-main);
     border-radius: var(--radius-sm);
     font-size: 13px;
@@ -186,7 +186,7 @@
   }
 
   .todo-item .tasks ul li:nth-child(2n) {
-    background-color: var(--color-bg-gray-4);
+    background-color: var(--color-gray-4);
     border-radius: var(--radius-sm);
   }
 
@@ -198,7 +198,7 @@
   }
 
   .todo-item.todo-item .todo-check span {
-    background-color: var(--color-bg-gray-3);
+    background-color: var(--color-gray-3);
     border: 1px solid var(--color-main);
     display: inline-block;
     border-radius: 999px;

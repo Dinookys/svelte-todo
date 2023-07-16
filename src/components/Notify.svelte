@@ -93,7 +93,7 @@
 
   .notify-content {
     box-shadow: rgba(0, 0, 0, 0.4);
-    background-color: var(--color-bg-gray-4);
+    background-color: var(--color-gray-4);
     border-radius: 8px;
     min-width: 12rem;
     max-width: 30rem;
@@ -107,7 +107,7 @@
   .notify-timebar {
     width: 100%;
     height: 3px;
-    background-color: var(--color-bg-gray-7);
+    background-color: var(--color-gray-7);
     position: relative;
     box-sizing: border-box;
   }

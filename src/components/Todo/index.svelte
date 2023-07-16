@@ -31,6 +31,6 @@
   }
   
   .wrapper.showSidebar {
-    padding-left: 300px;
+    padding-left: var(--sidebarWidth);
   }
 </style>

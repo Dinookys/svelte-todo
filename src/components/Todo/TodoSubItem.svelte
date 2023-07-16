@@ -34,6 +34,6 @@
 
     a.completed {
         text-decoration: line-through;
-        color: var(--color-bg-gray-6);
+        color: var(--color-gray-6);
     }
 </style>

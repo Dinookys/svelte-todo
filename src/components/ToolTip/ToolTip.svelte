@@ -123,7 +123,8 @@
 <style>
   .tooltip {
     position: absolute;
-    background-color: var(--color-bg-gray-5);
+    background-color: var(--color-main);
+    color: var(--color-light);
     padding: 5px;
     border-radius: var(--radius-sm);
     filter: opacity(0);

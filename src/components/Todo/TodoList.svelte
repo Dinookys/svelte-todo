@@ -43,8 +43,6 @@
       <ToolTip
         position={Positions.BottomRight}
         class="flex-1"
-        toolTipText="Type and press enter to create new item"
-        toolTipClass="bg-primary color-white"
       >
         <input
           type="text"
@@ -53,6 +51,9 @@
           on:keyup={addTodo}
           class="w-full"
         />
+        <span slot="toolTipText" >
+          Type and press <kbd>Enter</kbd> to create new item
+        </span>
       </ToolTip>
       <div class="todo-count">{completedPercent}</div>
     </div>
@@ -95,8 +96,8 @@
     text-transform: uppercase;
     margin: 0 0 10px;
     padding: 5px;
-    color: var(--color-bg-gray-7);
-    background-color: var(--color-bg-gray-2);
+    color: var(--color-gray-7);
+    background-color: var(--color-gray-2);
     border-radius: var(--radius-sm);
     font-size: 15px;
     text-align: center;
@@ -128,7 +129,7 @@
   }
 
   input {
-    background-color: var(--color-bg-gray-2);
+    background-color: var(--color-gray-2);
     border-radius: var(--radius-sm);
     color: var(--color-main);
     padding-inline: 20px;
@@ -139,7 +140,7 @@
   }
 
   input:focus {
-    color: var(--color-bg-gray-7);
+    color: var(--color-gray-7);
   }
 
   input::placeholder {
@@ -158,6 +159,6 @@
     width: 50px;
     padding: 1px 5px;
     border-radius: var(--radius-sm);
-    background-color: var(--color-bg-gray-2);
+    background-color: var(--color-gray-2);
   }
 </style>
