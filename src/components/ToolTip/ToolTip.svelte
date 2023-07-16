@@ -2,12 +2,12 @@
   import { Positions } from "./ToolTip";
 
   export let el = "span";  
-  export let toolTipText = "Tooltip text";
+  export let toolTipText = "Text";
   export let toolTipWidth = "";
   export let toolTipHeight = "";
   export let toolTipClass = "";
 
-  export let position = "";
+  export let position: Positions = Positions.BottomLeft;
   export let showWhenClicked = false;
 
   let element: HTMLElement;
@@ -20,21 +20,19 @@
 
   const getParentPosition = () => {   
 
-    const rect = element.getBoundingClientRect();
+    if(!element) return {top: 0, left: 0}
+
     const toolTipDialogHeight = toolTipDialog.offsetHeight;
     const toolTipDialogWidth = toolTipDialog.offsetWidth;
     const elementWidth = element.offsetWidth;
     const elementHeight = element.offsetHeight;
 
-    const topToolTip = rect.top + window.scrollY - (toolTipDialogHeight + 2);
-    const bottomToolTip = rect.top + window.scrollY + toolTipDialogHeight +  (elementHeight / 2);
-    const centerXToolTip =
-      rect.left + elementWidth / 2 - toolTipDialogWidth / 2;
-    const centerYToolTip =
-      rect.top + window.scrollY - toolTipDialogHeight / 2 + elementHeight / 2;
-    const leftToolTip =
-      rect.right + window.scrollY - (toolTipDialogWidth + elementWidth);
-    const rightToolTip = rect.left + window.scrollY + elementWidth;
+    const topToolTip = element.offsetTop - (toolTipDialogHeight + 2);
+    const bottomToolTip = element.offsetTop + toolTipDialogHeight +  (elementHeight / 2);
+    const centerXToolTip = element.offsetLeft + elementWidth / 2 - toolTipDialogWidth / 2;
+    const centerYToolTip = element.offsetTop - toolTipDialogHeight / 2 + elementHeight / 2;
+    const rightToolTip = element.offsetLeft + elementWidth - toolTipDialogWidth;
+    const leftToolTip = element.offsetLeft;
 
     switch (position) {
       case Positions.BottomCenter:
@@ -45,12 +43,12 @@
       case Positions.CenterLeft:
         return {
           top: centerYToolTip,
-          left: leftToolTip,
+          left: leftToolTip - toolTipDialogWidth - 5,
         };
       case Positions.CenterRight:
         return {
           top: centerYToolTip,
-          left: rightToolTip,
+          left: rightToolTip + toolTipDialogWidth + 5,
         };
       case Positions.TopLeft:
         return {
@@ -81,9 +79,9 @@
     }
   };
 
-  const onHovered = () => {
+  const onHovered = (show: boolean) => {
     if (showWhenClicked) return;
-    enterTooltip = !enterTooltip;
+    enterTooltip = show;
   };
 
   const onClicked = () => {
@@ -114,8 +112,8 @@
 <svelte:element
   this={el}
   bind:this={element}  
-  on:mouseenter={onHovered}
-  on:mouseleave={onHovered}
+  on:mouseenter={() => onHovered(true)}
+  on:mouseleave={() => onHovered(false)}
   on:click={onClicked}
   { ...$$restProps}
 >

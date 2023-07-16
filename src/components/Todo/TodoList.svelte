@@ -41,7 +41,7 @@
     <h3 class="title">{$todoStore.activeTodoGroup.name}</h3>
     <div class="actions">
       <ToolTip
-        position={Positions.BottomCenter}
+        position={Positions.BottomRight}
         class="flex-1"
         toolTipText="Type and press enter to create new item"
         toolTipClass="bg-primary color-white"

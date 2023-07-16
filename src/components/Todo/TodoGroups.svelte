@@ -40,8 +40,7 @@
 
 <aside class="wrapper-groups" class:showSidebar>
   <div class="actions">
-    <ToolTip
-      position={Positions.BottomCenter}
+    <ToolTip      
       class="flex-1"
       toolTipText="Type and press enter to create new group"
       toolTipClass="bg-primary color-white"
@@ -82,13 +81,17 @@
       >
     </div>
   </BoxConfirmation>
-  <div class="todo-key">
-    <ToolTip el="div" class="flex-1" position={Positions.TopCenter} >      
+  <div class="todo-key" class:hiddenSidebar={!showSidebar} >
+    <ToolTip position={Positions.TopLeft}>      
       <div slot="toolTipText">
         <kbd class="color-gray" >Crtl+b</kbd> to show/hide sidebar
       </div>
-      <button class="btn-primary w-full" on:click={() => (showSidebar = !showSidebar)}>
-        <span>Hidden sidebar</span>
+      <button class="btn-primary" on:click={() => (showSidebar = !showSidebar)}>
+        {#if showSidebar}
+          <span>&leftarrow;</span>
+        {:else}
+          <span>&rightarrow;</span>
+        {/if}
       </button>
     </ToolTip>
   </div>
@@ -128,6 +131,9 @@
     display: block;
     width: 100%;
     padding: 2px;
+    position: fixed;
+    left: 5px;    
+    bottom: 5px;
   }
 
   kbd {
