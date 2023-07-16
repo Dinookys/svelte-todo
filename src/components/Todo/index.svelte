@@ -5,7 +5,7 @@
 
   actions.persistData();
 
-  let showSidebar = false;
+  let showSidebar = true;
 
   const toggleSidebar = (event: KeyboardEvent) => {
     if (event.key == "b" && event.ctrlKey) {
@@ -16,24 +16,21 @@
 
 <svelte:window on:keyup={toggleSidebar} />
 
-<div class="wrapper" class:fullTodoList={!showSidebar}>
-  {#if showSidebar}
-    <TodoGroups />
-  {/if}
-  
+<div class="wrapper" class:showSidebar={showSidebar} >  
+  <TodoGroups bind:showSidebar={showSidebar} />
   {#if $todoStore.activeTodoGroup?.id}
     <TodoList />
   {/if}
 </div>
 
 <style>
-  .wrapper {
-    display: grid;
+  .wrapper {    
     width: 100%;
-    grid-template-columns: 300px 1fr;
+    padding-left: 0px;
+    transition: padding-left 0.5s;
   }
-
-  .wrapper.fullTodoList {
-    grid-template-columns: 1fr;
+  
+  .wrapper.showSidebar {
+    padding-left: 300px;
   }
 </style>

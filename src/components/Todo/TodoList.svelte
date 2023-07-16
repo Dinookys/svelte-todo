@@ -2,6 +2,8 @@
   import TodoItem from "./TodoItem.svelte";
   import BoxConfirmation from "../BoxConfirmation.svelte";
   import { todoStore, actions, type TodoItem as TodoType } from "./Todo";
+  import ToolTip from "../ToolTip/ToolTip.svelte";
+  import { Positions } from "../ToolTip/ToolTip";
 
   let totalTodos = 0;
   let totalCompletedTodos = 0;
@@ -36,20 +38,28 @@
 
 <section class="wrapper-todos">
   <div>
-    <h3>{$todoStore.activeTodoGroup.name}</h3>
+    <h3 class="title">{$todoStore.activeTodoGroup.name}</h3>
     <div class="actions">
-      <input
-        type="text"
-        name="todo"
-        placeholder="What needs to be done?"
-        on:keyup={addTodo}
-      />
+      <ToolTip
+        position={Positions.BottomCenter}
+        class="flex-1"
+        toolTipText="Type and press enter to create new item"
+        toolTipClass="bg-primary color-white"
+      >
+        <input
+          type="text"
+          name="todo"
+          placeholder="What needs to be done?"
+          on:keyup={addTodo}
+          class="w-full"
+        />
+      </ToolTip>
       <div class="todo-count">{completedPercent}</div>
     </div>
   </div>
   <div class="todo-container">
     <div class="todo-list">
-      {#each $todoStore.activeTodoGroup.todos.sort((a,b) => Number(a.completed) - Number(b.completed) ) as todo (todo.id)}
+      {#each $todoStore.activeTodoGroup.todos.sort((a, b) => Number(a.completed) - Number(b.completed)) as todo (todo.id)}
         <TodoItem
           {todo}
           on:remove={() => actions.removeTodo(todo.id)}
@@ -60,7 +70,7 @@
       {#if totalTodos === totalCompletedTodos}
         <div class="no-todos">No todos</div>
       {/if}
-    </div>    
+    </div>
   </div>
 </section>
 
@@ -89,6 +99,7 @@
     background-color: var(--color-bg-gray-2);
     border-radius: var(--radius-sm);
     font-size: 15px;
+    text-align: center;
   }
 
   .wrapper-todos {
@@ -102,7 +113,7 @@
     gap: 10px;
   }
 
-  .todo-list {    
+  .todo-list {
     width: 100%;
     overflow-y: auto;
     display: flex;

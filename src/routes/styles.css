@@ -12,7 +12,16 @@
 	--color-bg-gray-5: #5a5a5a;
 	--color-bg-gray-6: #6a6a6a;
 	--color-bg-gray-7: #7a7a7a;
+	--color-bg-green: #2ecc71;
+	--color-bg-green-hover: #27ae60;
+	--color-bg-blue: #3498db;
+	--color-bg-blue-hover: #3ea4e7;
+	--color-bg-purple: #8e44ad;
+	--color-bg-purple-hover: #9b59b6;
+	--color-bg-red: #c0392b;
+	--color-bg-red-hover: #e74c3c;
 	--color-bg-dark: hsl(0, 0%, 0%);
+	--color-bg-dark-hover: hsl(0, 0%, 6%);
 	--color-text: rgba(0, 0, 0, 0.7);
 	--color-main: #788cde;
 	--color-main-hover: #8399f1;
@@ -38,7 +47,6 @@ body {
 
 .actions {
 	display: flex;
-	justify-content: flex-end;
 	background: var(--color-main);
 	align-items: center;
 	padding: 2px;
@@ -54,8 +62,7 @@ body {
 	padding-block: 10px;
 	padding-inline: 20px;
 	border-radius: var(--radius-sm);
-	outline: none;
-	flex: 1 0 auto;
+	outline: none;	
 }
 
 .actions input:focus {
@@ -73,12 +80,128 @@ body {
 	max-height: 100vh;
 }
 
+.bg-primary {
+	background-color: var(--color-main) !important;
+}
+
+.bg-dark {
+	background-color: var(--color-bg-dark) !important;
+}
+
+.bg-gray {
+	background-color: var(--color-bg-gray) !important;
+}
+
+.bg-gray-2 {
+	background-color: var(--color-bg-gray-2) !important;
+}
+
+.bg-gray-3 {
+	background-color: var(--color-bg-gray-3) !important;
+}
+
+.bg-gray-4 {
+	background-color: var(--color-bg-gray-4) !important;
+}
+
+.bg-gray-5 {
+	background-color: var(--color-bg-gray-5) !important;
+}
+
+.bg-gray-6 {
+	background-color: var(--color-bg-gray-6) !important;
+}
+
+.bg-gray-7 {
+	background-color: var(--color-bg-gray-7) !important;
+}
+
+.bg-white {
+	background-color: white !important;
+}
+
+.bg-green {
+	background-color: var(--color-bg-green) !important;
+}
+
+.bg-blue {
+	background-color: var(--color-bg-blue) !important;
+}
+
+.bg-purple {
+	background-color: var(--color-bg-purple) !important;
+}
+
+.bg-red {
+	background-color: var(--color-bg-red) !important;
+}
+
+.color-primary {
+	color: var(--color-main) !important;
+}
+
+.color-dark {
+	color: var(--color-bg-dark) !important;
+}
+
+.color-green {
+	color: var(--color-bg-green) !important;
+}
+
+.color-blue {
+	color: var(--color-bg-blue) !important;
+}
+
+.color-purple {
+	color: var(--color-bg-purple) !important;
+}
+
+.color-red {
+	color: var(--color-bg-red) !important;
+}
+
+.color-white {
+	color: white !important;
+}
+
+.color-gray {
+	color: var(--color-bg-gray) !important;
+}
+
+.color-gray-2 {
+	color: var(--color-bg-gray-2) !important;
+}
+
+.color-gray-3 {
+	color: var(--color-bg-gray-3) !important;
+}
+
+.color-gray-4 {
+	color: var(--color-bg-gray-4) !important;
+}
+
+.color-gray-5 {
+	color: var(--color-bg-gray-5) !important;
+}
+
+.color-gray-6 {
+	color: var(--color-bg-gray-6) !important;
+}
+
+.color-gray-7 {
+	color: var(--color-bg-gray-7) !important;
+}
+
+[class*="btn-"] {
+	border-radius: var(--radius-sm);
+	cursor: pointer;
+	letter-spacing: 1.3px;
+}
+
 .btn-primary {
 	background-color: var(--color-main);
-	color: white;
-	border-radius: var(--radius-sm);
 	border: 1px solid var(--color-main);
-	cursor: pointer;
+	color: white;
 }
 
 .btn-primary:hover {
@@ -86,13 +209,67 @@ body {
 }
 
 .btn-light {
-	background-color: #e1e1e1;;
+	background-color: #e1e1e1;
 	color: var(--color-bg-gray);
-	border-radius: var(--radius-sm);
-	border: 1px solid #e1e1e1;;
-	cursor: pointer;
+	border: 1px solid #e1e1e1;
 }
 
 .btn-light:hover {
 	background-color: #ffffff;
+}
+
+.btn-dark {
+	background-color: var(--color-bg-dark);
+	border: 1px solid var(--color-bg-dark);
+	color: white;
+}
+
+.btn-dark:hover {
+	background-color: var(--color-bg-dark-hover);
+}
+
+.btn-green {
+	background-color: var(--color-bg-green);
+	border: 1px solid var(--color-bg-green);
+	color: white;
+}
+
+.btn-green:hover {
+	background-color: var(--color-bg-green-hover);
+}
+
+.btn-blue {
+	background-color: var(--color-bg-blue);
+	color: white;
+	border: 1px solid var(--color-bg-blue);
+}
+
+.btn-blue:hover {
+	background-color: var(--color-bg-blue-hover);
+}
+
+.btn-red {
+	background-color: var(--color-bg-red);
+	color: white;
+	border: 1px solid var(--color-bg-red);
+}
+
+.btn-red:hover {
+	background-color: var(--color-bg-red-hover);
+}
+
+.w-full {
+	width: 100%;
+}
+
+.h-full {
+	height: 100%;
+}
+
+.flex-1 {
+	flex: 1;
+}
+
+.flex-0 {
+	flex: 0;
 }
