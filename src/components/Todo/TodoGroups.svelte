@@ -38,8 +38,8 @@
   };
 </script>
 
-<aside class="wrapper-groups" class:showSidebar>
-  <div class="actions">
+<aside class="wrapper-groups h-screen bg-gray-800 flex flex-col" class:showSidebar>
+  <div class="actions mb-6">
     <ToolTip      
       class="flex-1"      
       toolTipWidth="300px"
@@ -49,8 +49,7 @@
         type="text"
         name="todo"
         placeholder="+ New Group Todo"
-        on:keyup={addTodoGroup}
-        class="w-full"
+        on:keyup={addTodoGroup}        
       />
       <span slot="toolTipText" >
         Type and press <kbd>Enter</kbd> to create new group
@@ -58,7 +57,7 @@
     </ToolTip>
   </div>
   <div class="todo-container">
-    <nav class="todo-list">
+    <nav class="todo-list flex flex-col gap-4">
       {#each $todoStore.todoGroups as todoGroup (todoGroup.id)}
         <TodoGroup
           {todoGroup}
@@ -71,15 +70,15 @@
   </div>
   <BoxConfirmation show={confirmRemove}>
     <div>Are you sure you want to delete this todo group?</div>
-    <div class="BoxConfirmation-actions">
+    <div class="flex justify-between mt-3 pt-3 border-t border-t-gray-800">
       <button
-        class="btn-light"
+        class="text-gray-500 hover:text-gray-400 text-xs"
         type="button"
         on:click={() => closeBoxConfirmation()}>Cancel</button
       >
       <button
         type="button"
-        class="btn-red"
+        class="text-red-600 hover:text-red-500 text-xs"
         on:click={() => confirmRemoveItem(removeGroupId)}>Confirm</button
       >
     </div>
@@ -89,7 +88,7 @@
       <div slot="toolTipText">
         <kbd>Crtl+b</kbd> to show/hide sidebar
       </div>
-      <button class="btn-primary" on:click={() => (showSidebar = !showSidebar)}>
+      <button class="bg-sky-700 px-2 rounded-md text-white" on:click={() => (showSidebar = !showSidebar)}>
         {#if showSidebar}
           <span>&leftarrow;</span>
         {:else}
@@ -101,32 +100,16 @@
 </aside>
 
 <style>
-  .wrapper-groups {
-    background-color: var(--color-gray-2);
-    height: 100vh;
+  .wrapper-groups {    
     width: var(--sidebarWidth);
     padding: 1rem;
     left: -300px;
     position: absolute;
-    transition: left 0.5s;
-    display: flex;
-    flex-direction: column;
+    transition: left 0.5s;    
   }
 
   .wrapper-groups.showSidebar {
     left: 0px;
-  }
-
-  .wrapper-groups .todo-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .BoxConfirmation-actions {
-    display: flex;
-    justify-content: space-between;
-    margin: 10px 0 0 0;
   }
 
   .todo-key {

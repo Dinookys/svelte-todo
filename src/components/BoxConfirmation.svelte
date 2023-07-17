@@ -1,67 +1,29 @@
 <script lang="ts">
-  import { writable } from "svelte/store";
-
   export let showTopCloseButton = false;
   export let show = false;
-
-  let startTransition = writable(false);
-  let showBox = writable(show);
-  let setTimeoutShowTime = undefined as number | undefined;
-
-  const delayTime = 200;
-
-  showBox.subscribe((value) => {
-    if (!value) {
-      show = value;
-      return;
-    }
-
-    setTimeoutShowTime = setTimeout(() => {
-      startTransition.set(true);
-    }, 1);
-  });
-
-  startTransition.subscribe((value) => {
-    if (!value) {
-      setTimeout(() => {
-        showBox.set(false);
-      }, delayTime);
-    }
-  });
-
-  $: if (!show) {
-    startTransition.set(false);
-  }
-
-  $: if (show) {
-    showBox.set(true);
-  }
 </script>
 
-{#if $showBox}
-  <div class="box-confirmation {$startTransition && 'show'}">
-    <div class="box-confirmation-content">
-      {#if showTopCloseButton}
-        <div class="box-confirmation-action">
-          <button on:click|preventDefault={() => startTransition.set(false)}
-            >&times;</button
-          >
-        </div>
-      {/if}
-
-      <div class="box-confirmation-body">
-        <slot />
+<div class="box-confirmation shadow-lg" class:show>
+  <div class="box-confirmation-content bg-gray-700 text-white rounded-md">
+    {#if showTopCloseButton}
+      <div class="box-confirmation-action">
+        <button on:click|preventDefault={() => (show = false)}>&times;</button
+        >
       </div>
+    {/if}
+
+    <div class="box-confirmation-body">
+      <slot />
     </div>
   </div>
-{/if}
+</div>
 
 <style>
   .box-confirmation {
-    transform: translate(-50%, -100%);
-    transition: all 0.5s linear;
+    transform: translateX(-50%);
+    transition: top 0.5s linear;
     justify-content: center;
-    align-items: start;
+    align-items: flex-start;
     position: fixed;
     overflow: auto;
     display: flex;
@@ -72,13 +34,10 @@
 
   .show {
     top: 0;
-    transform: translate(-50%, 0);
   }
 
   .box-confirmation-content {
     box-shadow: rgba(0, 0, 0, 0.4);
-    background-color: var(--color-gray-4);
-    border-radius: 8px;
     min-width: 12rem;
     max-width: 30rem;
     margin-top: 10px;

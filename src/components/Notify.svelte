@@ -56,26 +56,24 @@
   }
 </script>
 
-{#if $showNotification}
-  <div class="notify {$startTransition && 'show'}">
-    <div class="notify-content">
-      {#if time}
-        <div class="notify-timebar">
-          <div class="notify-time" style="width: {$width}%;" />
-        </div>
-      {/if}
-
-      <div class="notify-body">
-        <slot />
+<div class="notify {$startTransition && 'show'}">
+  <div class="notify-content">
+    {#if time}
+      <div class="notify-timebar">
+        <div class="notify-time" style="width: {$width}%;" />
       </div>
+    {/if}
+
+    <div class="notify-body">
+      <slot />
     </div>
   </div>
-{/if}
+</div>
 
 <style>
   .notify {
-    transform: translate(-50%, -100%);
-    transition: all 0.5s linear;
+    transform: translateX(-50%);
+    transition: top 0.5s linear;
     justify-content: center;
     align-items: start;
     position: fixed;
@@ -88,12 +86,10 @@
 
   .show {
     top: 0;
-    transform: translate(-50%, 0);
   }
 
   .notify-content {
     box-shadow: rgba(0, 0, 0, 0.4);
-    background-color: var(--color-gray-4);
     border-radius: 8px;
     min-width: 12rem;
     max-width: 30rem;
@@ -107,7 +103,6 @@
   .notify-timebar {
     width: 100%;
     height: 3px;
-    background-color: var(--color-gray-7);
     position: relative;
     box-sizing: border-box;
   }
@@ -117,6 +112,5 @@
     top: 0;
     left: 0;
     height: 100%;
-    background-color: var(--color-main);
   }
 </style>

@@ -5,36 +5,10 @@
 :root {
 	--font-body: 'Roboto', sans-serif;
 	--font-mono: 'Fira Mono', monospace;
-	--color-gray: #1a1a1a;
-	--color-gray-2: #2a2a2a;
-	--color-gray-3: #3a3a3a;
-	--color-gray-4: #4a4a4a;
-	--color-gray-5: #5a5a5a;
-	--color-gray-6: #6a6a6a;
-	--color-gray-7: #7a7a7a;
-	--color-green: #2ecc71;
-	--color-green-hover: #27ae60;
-	--color-blue: #3498db;
-	--color-blue-hover: #3ea4e7;
-	--color-purple: #8e44ad;
-	--color-purple-hover: #9b59b6;
-	--color-red: #c0392b;
-	--color-red-hover: #e74c3c;
-	--color-dark: hsl(0, 0%, 0%);
-	--color-dark-hover: hsl(0, 0%, 6%);
-	--color-text: rgba(0, 0, 0, 0.7);
-	--color-main: #788cde;
-	--color-main-hover: #8399f1;
-	--color-light: #e1e1e1;
-	--column-width: 42rem;
-	--column-margin-top: 4rem;
-	--radius-sm: 0.25rem;
 	--sidebarWidth: 20rem;
-	color: var(--color-main);
-	font-size: 0.80rem;
 }
 
-* {
+/* * {
 	box-sizing: border-box;
 	font-family: var(--font-body);
 }
@@ -292,4 +266,4 @@ kbd {
 	color: var(--color-gray-7);
 	padding: 3px;
 	border-radius: var(--radius-sm);
-}
+} */

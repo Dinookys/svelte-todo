@@ -12,44 +12,18 @@
   export let isActive = false;
 </script>
 
-<div class="todo-group" >
-  <button on:click={() => dispatch("active", todoGroup)}
-    class:active={isActive} >{todoGroup.name}</button
+<div
+  class="todo-group flex rounded-md {isActive
+    ? 'bg-slate-500'
+    : 'bg-slate-700 text-white'}"
+>
+  <button
+    class="grow text-left p-2"
+    on:click={() => dispatch("active", todoGroup)}
+    class:active={isActive}>{todoGroup.name}</button
   >
-  <button on:click={() => dispatch("remove", todoGroup.id)} >&times;</button>
+  <button
+    class="p-2 bg-transparent text-white border-l border-l-gray-800 rounded-r-md hover:bg-red-600 transition-colors"
+    on:click={() => dispatch("remove", todoGroup.id)}>&times;</button
+  >
 </div>
-
-<style>
-  button {
-    border: 1px solid var(--color-gray-3);
-    background-color: transparent;
-    text-transform: uppercase;
-    font-weight: bold;
-    cursor: pointer;    
-    padding: 10px;    
-    color: white;
-  }
-
-  button.active {
-    background-color: var(--color-gray-3);
-  }
-
-  .todo-group {
-    display: flex;
-  }
-
-  .todo-group button:first-child {
-    flex-grow: 1;    
-    width: 100%;
-    border-start-start-radius: var(--radius-sm);
-    border-end-start-radius: var(--radius-sm);
-  }
-
-  .todo-group button:last-child{    
-    flex-shrink: 1;
-    text-align: center;
-    border-start-end-radius: var(--radius-sm);
-    border-end-end-radius: var(--radius-sm);    
-    border-left: none;
-  }
-</style>

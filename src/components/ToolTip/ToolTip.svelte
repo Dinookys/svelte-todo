@@ -99,7 +99,7 @@
 </script>
 
 <div    
-  class="tooltip {toolTipClass}"
+  class="tooltip bg-sky-700 text-xs text-white rounded-md p-2 {toolTipClass}"
   class:enter={enterTooltip}
   class:show={showTooltip}
   style="left: {toolTipLeftPosition}px; top: {toolTipTopPosition}px; {toolTipWidth &&
@@ -122,11 +122,7 @@
 
 <style>
   .tooltip {
-    position: absolute;
-    background-color: var(--color-main);
-    color: var(--color-light);
-    padding: 5px;
-    border-radius: var(--radius-sm);
+    position: absolute;    
     filter: opacity(0);
     transform: scale(0);
     transition: filter 0.3s;
