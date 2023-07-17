@@ -64,23 +64,33 @@
       'bg-sky-700'}"><span /></button
   >
 
-  <div class="todo-text p-3 grow ">
+  <div class="todo-text p-3 grow">
     <div>
-      <button class="text {isCompleted && 'line-through'}" on:click={() => (showTasks = !showTasks)} >{todo.text}</button>
+      <button
+        class="text flex items-center {isCompleted && 'line-through'}"
+        on:click={() => (showTasks = !showTasks)}
+        >{todo.text}
+        <span class="bg-sky-700 text-white font-mono rounded-md pt-1 w-6 h-6 ml-2 text-xl" >
+          {#if showTasks}&#708; {:else} &#709; {/if}
+        </span>
+      </button>
     </div>
     <div class="tasks my-2">
       {#if showTasks}
         {#if todo.items?.length}
-          <ul class="bg-gray-700 rounded-md p-2">
+          <ul class="bg-gray-700 rounded-md p-2 max-h-80 overflow-y-scroll">
             {#each todo.items as item (item.id)}
-              <li class="flex justify-between p-2" >
+              <li class="flex justify-between p-2">
                 <button
-                  class="task-text {item.completed && 'line-through text-gray-600'} "
+                  class="task-text {item.completed &&
+                    'line-through text-gray-600'} "
                   on:click|preventDefault={(event) =>
                     updateTask({ ...item, completed: !item.completed })}
                   >{item.text}</button
                 >
-                <button class="hover:text-red-500"  on:click|preventDefault={() => removeTask(item.id)}
+                <button
+                  class="hover:text-red-500"
+                  on:click|preventDefault={() => removeTask(item.id)}
                   >&times</button
                 >
               </li>
@@ -107,7 +117,8 @@
 
   <div class="flex items-center h-full space-x-5 pr-5">
     <span
-      >({todo.items?.filter((task) => task.completed).length || 0}/{todo.items?.length || 0})</span
+      >({todo.items?.filter((task) => task.completed).length || 0}/{todo.items
+        ?.length || 0})</span
     >
     {#if !isCompleted}
       <button on:click={() => dispatch("edit", todo)} class="todo-edit"

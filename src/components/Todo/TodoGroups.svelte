@@ -38,10 +38,13 @@
   };
 </script>
 
-<aside class="wrapper-groups h-screen bg-gray-800 flex flex-col" class:showSidebar>
+<aside
+  class="wrapper-groups h-screen bg-gray-800 flex flex-col"
+  class:showSidebar
+>
   <div class="actions mb-6">
-    <ToolTip      
-      class="flex-1"      
+    <ToolTip
+      class="flex-1"
       toolTipWidth="300px"
       position={Positions.CenterRight}
     >
@@ -49,9 +52,9 @@
         type="text"
         name="todo"
         placeholder="+ New Group Todo"
-        on:keyup={addTodoGroup}        
+        on:keyup={addTodoGroup}
       />
-      <span slot="toolTipText" >
+      <span slot="toolTipText">
         Type and press <kbd>Enter</kbd> to create new group
       </span>
     </ToolTip>
@@ -83,16 +86,19 @@
       >
     </div>
   </BoxConfirmation>
-  <div class="todo-key" class:hiddenSidebar={!showSidebar} >
-    <ToolTip position={Positions.TopLeft}>      
+  <div class="todo-key" class:hiddenSidebar={!showSidebar}>
+    <ToolTip position={Positions.TopLeft}>
       <div slot="toolTipText">
         <kbd>Crtl+b</kbd> to show/hide sidebar
       </div>
-      <button class="bg-sky-700 px-2 rounded-md text-white" on:click={() => (showSidebar = !showSidebar)}>
+      <button
+        class="bg-sky-700 text-white flex justify-center items-center rounded-full w-8 h-8 font-mono "
+        on:click={() => (showSidebar = !showSidebar)}
+      >
         {#if showSidebar}
-          <span>&leftarrow;</span>
+          <span>&#60;</span>
         {:else}
-          <span>&rightarrow;</span>
+          <span>&#62;</span>
         {/if}
       </button>
     </ToolTip>
@@ -100,12 +106,12 @@
 </aside>
 
 <style>
-  .wrapper-groups {    
+  .wrapper-groups {
     width: var(--sidebarWidth);
     padding: 1rem;
-    left: -300px;
+    left: calc(var(--sidebarWidth) * -1);
     position: absolute;
-    transition: left 0.5s;    
+    transition: left 0.5s;
   }
 
   .wrapper-groups.showSidebar {
@@ -118,7 +124,7 @@
     width: 100%;
     padding: 2px;
     position: fixed;
-    left: 5px;    
+    left: 5px;
     bottom: 5px;
   }
 </style>
