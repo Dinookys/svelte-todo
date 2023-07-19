@@ -8,7 +8,6 @@
   import DragItem from "../Drop/DragItem.svelte";
 
   let totalTodos = 0;
-  let totalCompletedTodos = 0;
   let showModal = false;
   let todoToEdit = {} as TodoType;
   let originalTodoToEdit = {} as TodoType;
@@ -29,10 +28,6 @@
 
   $: {
     totalTodos = $todoStore.activeTodoGroup.todos.length;
-    totalCompletedTodos = $todoStore.activeTodoGroup.todos.filter(
-      (todo) => todo.completed
-    ).length;
-
     if (todoToEdit != originalTodoToEdit) actions.updateTodo(todoToEdit);
   }
 </script>

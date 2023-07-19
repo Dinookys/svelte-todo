@@ -2,6 +2,12 @@
   import { createEventDispatcher } from "svelte";
   import type { TodoItemSubItem, TodoItem as TodoType } from "./Todo";
 
+  //ICONS
+  import ChevronUp from "svelte-icons/fa/FaChevronUp.svelte";
+  import ChevronDown from "svelte-icons/fa/FaChevronDown.svelte";
+  import TrashIcon from "svelte-icons/fa/FaTrash.svelte";
+  import PenIcon from "svelte-icons/fa/FaPen.svelte";
+
   export let todo = {
     text: "",
     completed: false,
@@ -71,8 +77,14 @@
         class="text flex items-center {isCompleted && 'line-through'}"
         on:click={() => (showTasks = !showTasks)}
         >{todo.text}
-        <span class="bg-sky-700 text-white font-mono rounded-md pt-1 w-6 h-6 ml-2 text-xl" >
-          {#if showTasks}&#708; {:else} &#709; {/if}
+        <span
+          class="bg-sky-700 text-white rounded-full p-1 w-4 h-4 ml-2 text-xl flex items-center"
+        >
+          {#if showTasks}
+            <ChevronUp />
+          {:else}
+            <ChevronDown />
+          {/if}
         </span>
       </button>
     </div>
@@ -122,13 +134,15 @@
         ?.length || 0})</span
     >
     {#if !isCompleted}
-      <button on:click={() => dispatch("edit", todo)} class="todo-edit"
-        >Edit</button
-      >
+      <button on:click={() => dispatch("edit", todo)} class="text-white hover:text-blue-600 w-3 h-3">
+        <PenIcon />
+      </button>
     {/if}
     <button
-      class="text-white hover:text-red-600"
-      on:click={() => dispatch("remove", todo.id)}>&times;</button
+      class="text-white hover:text-red-600 w-3 h-3"
+      on:click={() => dispatch("remove", todo.id)}>
+      <TrashIcon />
+      </button
     >
   </div>
 </div>

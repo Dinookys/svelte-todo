@@ -23,5 +23,10 @@
 		"typescript": "^5.0.0",
 		"vite": "^4.3.0"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@mdi/js": "^7.2.96",
+		"mdi-svelte-ts": "^1.0.0",
+		"svelte-icons": "^2.1.0"
+	}
 }

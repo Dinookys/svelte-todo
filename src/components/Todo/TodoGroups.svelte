@@ -5,6 +5,10 @@
   import ToolTip from "../ToolTip/ToolTip.svelte";
   import { Positions } from "../ToolTip/ToolTip";
 
+  //ICONS
+  import ChevronLeft from "svelte-icons/fa/FaChevronLeft.svelte";
+  import ChevronRight from "svelte-icons/fa/FaChevronRight.svelte";
+
   export let showSidebar = true;
 
   let confirmRemove = false;
@@ -92,13 +96,13 @@
         <kbd>Crtl+b</kbd> to show/hide sidebar
       </div>
       <button
-        class="bg-sky-700 text-white flex justify-center items-center rounded-full w-8 h-8 font-mono "
+        class="bg-sky-700 text-white flex justify-center items-center rounded-full w-8 h-8 p-2 font-mono"
         on:click={() => (showSidebar = !showSidebar)}
       >
         {#if showSidebar}
-          <span>&#60;</span>
+          <ChevronLeft />
         {:else}
-          <span>&#62;</span>
+          <ChevronRight />
         {/if}
       </button>
     </ToolTip>
