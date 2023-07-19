@@ -6,3 +6,11 @@
 .actions textarea {
     @apply w-full p-2 rounded-md m-0 bg-gray-600 border-2 border-sky-700  outline-none focus:border-sky-500  transition-colors
 }
+
+.dragitem {
+    @apply relative opacity-25 transition-all
+}
+
+.dragenter {
+    @apply relative border-dashed border-2 border-sky-800
+}

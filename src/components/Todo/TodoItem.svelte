@@ -57,6 +57,7 @@
 <div
   class="todo-item text-xs flex items-center bg-gray-600 rounded-md text-slate-50"
   class:completed={isCompleted}
+  {...$$restProps}
 >
   <button
     on:click|preventDefault={() => (isCompleted = !isCompleted)}

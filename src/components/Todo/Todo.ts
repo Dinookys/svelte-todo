@@ -17,6 +17,8 @@ export const todoStore = writable<TodoState>({
 });
 
 export const actions = {
+    draggableItem: {} as TodoItem,
+    dropTargetId: 0,
     addTodo: (text: string) => {
         todoStore.update((store) => {
             const createdAt = Date.now();
@@ -86,6 +88,21 @@ export const actions = {
         });
     },
 
+    dragStartTodo: (todo: TodoItem) => {
+        actions.draggableItem = todo;
+    },
+    dragEnterTodo: (id: number) => {
+        actions.dropTargetId = id;
+    },
+    dropTodo: () => {        
+        todoStore.update((store) => {
+            let filterTodos = store.activeTodoGroup.todos.filter((todo) => todo.id !== actions.draggableItem.id);
+            const findDropTodoTargetIndex = store.activeTodoGroup.todos.findIndex((todo) => todo.id === actions.dropTargetId);
+            filterTodos.splice(findDropTodoTargetIndex, 0, actions.draggableItem)
+            store.activeTodoGroup.todos = filterTodos
+            return store;
+        })
+    },
     persistData: () => {
         onMount(() => {
             if (localStorage?.todoStore) {
