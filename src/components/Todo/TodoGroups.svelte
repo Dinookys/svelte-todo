@@ -43,7 +43,7 @@
 </script>
 
 <aside
-  class="wrapper-groups h-screen bg-gray-800 flex flex-col"
+  class="wrapper-groups bg-gray-800 flex flex-col overflow-auto"
   class:showSidebar
 >
   <div class="actions mb-6">
@@ -114,8 +114,10 @@
     width: var(--sidebarWidth);
     padding: 1rem;
     left: calc(var(--sidebarWidth) * -1);
-    position: absolute;
+    position: fixed;
     transition: left 0.5s;
+    top: 0;
+    bottom: 0;
   }
 
   .wrapper-groups.showSidebar {

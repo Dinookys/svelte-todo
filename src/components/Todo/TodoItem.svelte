@@ -65,18 +65,21 @@
   class:completed={isCompleted}
   {...$$restProps}
 >
-  <button
-    on:click|preventDefault={() => (isCompleted = !isCompleted)}
-    class="rounded-full border border-sky-700 w-6 h-6 ml-3 {isCompleted &&
-      'bg-sky-700'}"><span /></button
-  >
+  <div class="flex-shrink">
+    <button
+      on:click|preventDefault={() => (isCompleted = !isCompleted)}
+      class="rounded-full border border-sky-700 w-6 h-6 ml-3 {isCompleted &&
+        'bg-sky-700'}"><span /></button
+    >
+  </div>
 
-  <div class="todo-text p-3 grow">
+  <div class="todo-text p-3 w-10/12">
     <div>
       <button
-        class="text flex items-center {isCompleted && 'line-through'}"
+        class="text text-left flex items-center {isCompleted && 'line-through'}"
         on:click={() => (showTasks = !showTasks)}
-        >{todo.text}
+      >
+        <span class="w-11/12">{todo.text}</span>
         <span
           class="bg-sky-700 text-white rounded-full p-1 w-4 h-4 ml-2 text-xl flex items-center"
         >
@@ -128,21 +131,24 @@
     </div>
   </div>
 
-  <div class="flex items-center h-full space-x-5 pr-5">
+  <div class="flex items-center h-full space-x-5 pr-5 ml-auto">
     <span
       >({todo.items?.filter((task) => task.completed).length || 0}/{todo.items
         ?.length || 0})</span
     >
     {#if !isCompleted}
-      <button on:click={() => dispatch("edit", todo)} class="text-white hover:text-blue-600 w-3 h-3">
+      <button
+        on:click={() => dispatch("edit", todo)}
+        class="text-white hover:text-blue-600 w-3 h-3"
+      >
         <PenIcon />
       </button>
     {/if}
     <button
       class="text-white hover:text-red-600 w-3 h-3"
-      on:click={() => dispatch("remove", todo.id)}>
-      <TrashIcon />
-      </button
+      on:click={() => dispatch("remove", todo.id)}
     >
+      <TrashIcon />
+    </button>
   </div>
 </div>
