@@ -56,6 +56,7 @@
         type="text"
         name="todo"
         placeholder="+ New Group Todo"
+        class="text-gray-100"
         on:keyup={addTodoGroup}
       />
       <span slot="toolTipText">

@@ -76,10 +76,10 @@
   <div class="todo-text p-3 w-10/12">
     <div>
       <button
-        class="text text-left flex items-center {isCompleted && 'line-through'}"
+        class="text text-left flex "
         on:click={() => (showTasks = !showTasks)}
       >
-        <span class="w-11/12">{todo.text}</span>
+        <span class="w-11/12 text-md ">{todo.text}</span>
         <span
           class="bg-sky-700 text-white rounded-full p-1 w-4 h-4 ml-2 text-xl flex items-center"
         >
@@ -124,11 +124,7 @@
           </div>
         {/if}
       {/if}
-    </div>
-    <div class="date">
-      <span>Criado: {formatDate(todo.createdAt || 0)}</span> |
-      <span>Atualizado: {formatDate(todo.updatedAt || 0)}</span>
-    </div>
+    </div>    
   </div>
 
   <div class="flex items-center h-full space-x-5 pr-5 ml-auto">
@@ -151,4 +147,8 @@
       <TrashIcon />
     </button>
   </div>
+</div>
+<div class="date text-slate-500 p-1" style="font-size: 10px;" >
+  <span>Criado: {formatDate(todo.createdAt || 0)}</span> |
+  <span>Atualizado: {formatDate(todo.updatedAt || 0)}</span>
 </div>

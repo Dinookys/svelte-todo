@@ -44,7 +44,7 @@
           name="todo"
           placeholder="What needs to be done?"
           on:keyup={addTodo}
-          class="w-full"
+          class="w-full text-gray-100"
         />
         <span slot="toolTipText">
           Type and press <kbd>Enter</kbd> to create new item
