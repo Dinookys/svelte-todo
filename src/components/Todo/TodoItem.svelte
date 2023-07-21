@@ -3,8 +3,6 @@
   import type { TodoItemSubItem, TodoItem as TodoType } from "./Todo";
 
   //ICONS
-  import ChevronUp from "svelte-icons/fa/FaChevronUp.svelte";
-  import ChevronDown from "svelte-icons/fa/FaChevronDown.svelte";
   import TrashIcon from "svelte-icons/fa/FaTrash.svelte";
   import PenIcon from "svelte-icons/fa/FaPen.svelte";
 
@@ -14,6 +12,8 @@
     items: [] as TodoItemSubItem[],
   } as TodoType;
 
+  export let isActive = false;
+
   const dispatch = createEventDispatcher();
 
   const formatDate = (date: number) => {
@@ -21,36 +21,7 @@
     return `${d.toLocaleDateString()} ${d.toLocaleTimeString()}`;
   };
 
-  const addTask = (event: KeyboardEvent) => {
-    const input = event.target as HTMLInputElement;
-
-    if (event.key !== "Enter") return;
-
-    todo.items.push({
-      text: input.value,
-      completed: false,
-      id: Date.now(),
-      createdAt: Date.now(),
-      updatedAt: Date.now(),
-    } as TodoItemSubItem);
-
-    input.value = "";
-
-    dispatch("update", todo);
-  };
-
-  const removeTask = (id: number) => {
-    todo.items = todo.items.filter((item) => item.id !== id);
-    dispatch("update", todo);
-  };
-
-  const updateTask = (task: TodoItemSubItem) => {
-    todo.items = todo.items.map((item) => (item.id === task.id ? task : item));
-    dispatch("update", todo);
-  };
-
   let isCompleted = todo.completed;
-  let showTasks = false;
 
   $: if (isCompleted != todo.completed) {
     dispatch("update", {
@@ -61,70 +32,24 @@
 </script>
 
 <div
-  class="todo-item text-xs flex items-center bg-gray-600 rounded-md text-slate-50"
+  class="todo-item text-xs flex items-center bg-slate-600 rounded-md text-slate-50 transition-colors {isActive
+    ? 'bg-slate-500'
+    : ''}"
   class:completed={isCompleted}
   {...$$restProps}
 >
   <div class="flex-shrink">
     <button
       on:click|preventDefault={() => (isCompleted = !isCompleted)}
-      class="rounded-full border border-sky-700 w-6 h-6 ml-3 {isCompleted &&
-        'bg-sky-700'}"><span /></button
+      class="text rounded-full border w-6 h-6 ml-3 border-none {isCompleted ?
+        'bg-yellow-700' : 'bg-slate-100'}"><span /></button
     >
   </div>
 
   <div class="todo-text p-3 w-10/12">
-    <div>
-      <button
-        class="text text-left flex "
-        on:click={() => (showTasks = !showTasks)}
-      >
-        <span class="w-11/12 text-md ">{todo.text}</span>
-        <span
-          class="bg-sky-700 text-white rounded-full p-1 w-4 h-4 ml-2 text-xl flex items-center"
-        >
-          {#if showTasks}
-            <ChevronUp />
-          {:else}
-            <ChevronDown />
-          {/if}
-        </span>
-      </button>
-    </div>
-    <div class="tasks my-2">
-      {#if showTasks}
-        {#if todo.items?.length}
-          <ul class="bg-gray-700 rounded-md p-2 max-h-80 overflow-y-scroll">
-            {#each todo.items as item (item.id)}
-              <li class="flex justify-between p-2">
-                <button
-                  class="task-text {item.completed &&
-                    'line-through text-gray-600'} "
-                  on:click|preventDefault={(event) =>
-                    updateTask({ ...item, completed: !item.completed })}
-                  >{item.text}</button
-                >
-                <button
-                  class="hover:text-red-500"
-                  on:click|preventDefault={() => removeTask(item.id)}
-                  >&times</button
-                >
-              </li>
-            {/each}
-          </ul>
-        {/if}
-        {#if !todo.completed}
-          <div class="add-task actions mt-2">
-            <input
-              type="text"
-              class="w-full"
-              placeholder="+ Add step"
-              on:keyup={addTask}
-            />
-          </div>
-        {/if}
-      {/if}
-    </div>    
+    <button class="text text-left w-full" on:click={() => dispatch("active")}>
+      {todo.text}
+    </button>
   </div>
 
   <div class="flex items-center h-full space-x-5 pr-5 ml-auto">
@@ -148,7 +73,14 @@
     </button>
   </div>
 </div>
-<div class="date text-slate-500 p-1" style="font-size: 10px;" >
+<div class="date text-slate-500 p-1" style="font-size: 10px;">
   <span>Criado: {formatDate(todo.createdAt || 0)}</span> |
   <span>Atualizado: {formatDate(todo.updatedAt || 0)}</span>
 </div>
+
+<style>
+  .text {
+    line-height: 170%;
+    font-size: 1rem;
+  }
+</style>

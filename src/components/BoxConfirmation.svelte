@@ -4,7 +4,7 @@
 </script>
 
 <div class="box-confirmation shadow-lg" class:show>
-  <div class="box-confirmation-content bg-gray-700 text-white rounded-md">
+  <div class="box-confirmation-content bg-slate-700 text-white rounded-md">
     {#if showTopCloseButton}
       <div class="box-confirmation-action">
         <button on:click|preventDefault={() => (show = false)}>&times;</button

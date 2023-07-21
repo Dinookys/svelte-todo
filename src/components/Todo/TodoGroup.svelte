@@ -23,7 +23,7 @@
     class:active={isActive}>{todoGroup.name}</button
   >
   <button
-    class="p-2 bg-transparent text-white border-l border-l-gray-800 rounded-r-md hover:bg-red-600 transition-colors"
+    class="p-2 bg-transparent text-white border-l border-l-slate-800 rounded-r-md hover:bg-red-600 transition-colors"
     on:click={() => dispatch("remove", todoGroup.id)}>&times;</button
   >
 </div>

@@ -6,7 +6,6 @@
   export let toolTipWidth = "";
   export let toolTipHeight = "";
   export let toolTipClass = "";
-
   export let position: Positions = Positions.BottomLeft;
   export let showWhenClicked = false;
 
@@ -99,7 +98,7 @@
 </script>
 
 <div    
-  class="tooltip bg-sky-700 text-xs text-white rounded-md p-2 {toolTipClass}"
+  class="tooltip bg-yellow-700 text-xs text-white rounded-md p-2 {toolTipClass}"
   class:enter={enterTooltip}
   class:show={showTooltip}
   style="left: {toolTipLeftPosition}px; top: {toolTipTopPosition}px; {toolTipWidth &&
@@ -126,6 +125,7 @@
     filter: opacity(0);
     transform: scale(0);
     transition: filter 0.3s;
+    z-index: 9999;
   }
 
   .tooltip.enter {

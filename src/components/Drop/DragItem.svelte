@@ -2,47 +2,40 @@
   import { createEventDispatcher } from "svelte";
 
   const dispatch = createEventDispatcher();
+  let item: HTMLDivElement = undefined as any;
+  let draggable = true;
+
 
   const dragStart = (event: DragEvent) => {
-    const target = event.currentTarget as HTMLDivElement;
-    if (target) {
-      target.classList.add("dragitem");
-    }
+    item.classList.add("dragitem");
     dispatch("dragstart", event);
   };
 
   const dragEnd = (event: DragEvent) => {
-    const target = event.currentTarget as HTMLDivElement;
-    if (target) {
-      target.classList.remove("dragitem");
-    }
+    item.classList.remove("dragitem");
     dispatch("dragend", event);
   };
 
   const dragLeave = (event: DragEvent) => {
-    const target = event.currentTarget as HTMLDivElement;
-    if (target) {
-      target.classList.remove("dragenter");
-    }
+    item.classList.remove("dragenter");
     dispatch("dragleave", event);
   };
 
   const dragOver = (event: DragEvent) => {
-    const target = event.currentTarget as HTMLDivElement;
-    if (target) {
-      target.classList.add("dragenter");
-    }
+    item.classList.add("dragenter");
     dispatch("dragover", event);
   };
 </script>
 
 <div
+  bind:this={item}
   {...$$restProps}
   on:dragstart={dragStart}
   on:dragleave={dragLeave}
   on:dragend={dragEnd}
   on:dragover={dragOver}
-  draggable="true"
+  {draggable}
+  class="border-2 border-transparent rounded-md"
 >
   <slot />
 </div>

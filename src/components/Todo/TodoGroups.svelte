@@ -43,20 +43,20 @@
 </script>
 
 <aside
-  class="wrapper-groups bg-gray-800 flex flex-col overflow-auto"
+  class="wrapper-groups bg-slate-800 flex flex-col overflow-auto"
   class:showSidebar
 >
   <div class="actions mb-6">
     <ToolTip
       class="flex-1"
       toolTipWidth="300px"
-      position={Positions.CenterRight}
+      position={Positions.BottomCenter}
     >
       <input
         type="text"
         name="todo"
         placeholder="+ New Group Todo"
-        class="text-gray-100"
+        class="text-slate-100"
         on:keyup={addTodoGroup}
       />
       <span slot="toolTipText">
@@ -78,9 +78,9 @@
   </div>
   <BoxConfirmation show={confirmRemove}>
     <div>Are you sure you want to delete this todo group?</div>
-    <div class="flex justify-between mt-3 pt-3 border-t border-t-gray-800">
+    <div class="flex justify-between mt-3 pt-3 border-t border-t-slate-800">
       <button
-        class="text-gray-500 hover:text-gray-400 text-xs"
+        class="text-slate-500 hover:text-slate-400 text-xs"
         type="button"
         on:click={() => closeBoxConfirmation()}>Cancel</button
       >
@@ -97,7 +97,7 @@
         <kbd>Crtl+b</kbd> to show/hide sidebar
       </div>
       <button
-        class="bg-sky-700 text-white flex justify-center items-center rounded-full w-8 h-8 p-2 font-mono"
+        class="bg-yellow-700 text-white flex justify-center items-center rounded-full w-8 h-8 p-2 font-mono"
         on:click={() => (showSidebar = !showSidebar)}
       >
         {#if showSidebar}
@@ -118,7 +118,7 @@
     position: fixed;
     transition: left 0.5s;
     top: 0;
-    bottom: 0;
+    bottom: 0;    
   }
 
   .wrapper-groups.showSidebar {
@@ -133,5 +133,6 @@
     position: fixed;
     left: 5px;
     bottom: 5px;
+    width: auto;
   }
 </style>

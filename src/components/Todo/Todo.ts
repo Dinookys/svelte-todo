@@ -8,12 +8,14 @@ export type TodoState = {
     todoGroups: TodoGroupItem[];
     activeTodoGroup: TodoGroupItem;
     activeIDTodoGroup: number;
+    activeTodoItem: TodoItem;
 }
 
 export const todoStore = writable<TodoState>({
     todoGroups: [],
     activeTodoGroup: { id: 0, name: "", todos: [] } as TodoGroupItem,
     activeIDTodoGroup: 0,
+    activeTodoItem: {} as TodoItem
 });
 
 export const actions = {
@@ -53,6 +55,7 @@ export const actions = {
             const newTodoGroup = { id: Date.now(), name, todos: [] };
             store.todoGroups.push(newTodoGroup);
             actions.setActiveTodoGroup(newTodoGroup.id);
+            store.activeTodoItem = {} as TodoItem;
             return store;
         });
     },
@@ -64,7 +67,7 @@ export const actions = {
                 store.activeTodoGroup = { id: 0, name: "", todos: [] } as TodoGroupItem;
                 store.activeIDTodoGroup = 0;
             }
-
+            store.activeTodoItem = {} as TodoItem;
             return store;
         });
     },
@@ -84,17 +87,24 @@ export const actions = {
                 store.activeIDTodoGroup = id;
             }
 
+            store.activeTodoItem = {} as TodoItem;
+
             return store;
         });
     },
-
+    setActiveTodo: (todo: TodoItem) => {
+        todoStore.update((store) => {
+            store.activeTodoItem = todo;
+            return store;
+        });
+    },
     dragStartTodo: (todo: TodoItem) => {
         actions.draggableItem = todo;
     },
     dragEnterTodo: (id: number) => {
         actions.dropTargetId = id;
     },
-    dropTodo: () => {        
+    dropTodo: () => {
         todoStore.update((store) => {
             let filterTodos = store.activeTodoGroup.todos.filter((todo) => todo.id !== actions.draggableItem.id);
             const findDropTodoTargetIndex = store.activeTodoGroup.todos.findIndex((todo) => todo.id === actions.dropTargetId);
