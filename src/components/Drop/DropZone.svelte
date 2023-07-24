@@ -11,6 +11,6 @@
   };
 </script>
 
-<div {...$$restProps} on:drop={drop} ondragover="return false">
+<div {...$$restProps} on:drop={drop} on:dragover={(ev) => { ev.preventDefault() }}>
   <slot />
 </div>

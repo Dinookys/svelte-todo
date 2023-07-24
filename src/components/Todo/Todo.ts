@@ -19,7 +19,7 @@ export const todoStore = writable<TodoState>({
 });
 
 export const actions = {
-    draggableItem: {} as TodoItem,
+    draggableItemId: 0,
     dropTargetId: 0,
     addTodo: (text: string) => {
         todoStore.update((store) => {
@@ -98,18 +98,35 @@ export const actions = {
             return store;
         });
     },
-    dragStartTodo: (todo: TodoItem) => {
-        actions.draggableItem = todo;
+    dragStart: (id: number) => {
+        actions.draggableItemId = id;
     },
-    dragEnterTodo: (id: number) => {
+    dragEnter: (id: number) => {
         actions.dropTargetId = id;
     },
     dropTodo: () => {
         todoStore.update((store) => {
-            let filterTodos = store.activeTodoGroup.todos.filter((todo) => todo.id !== actions.draggableItem.id);
+            const findDragItem = store.activeTodoGroup.todos.find((todo) => todo.id == actions.draggableItemId);
+            let filterTodos = store.activeTodoGroup.todos.filter((todo) => todo.id !== actions.draggableItemId);
             const findDropTodoTargetIndex = store.activeTodoGroup.todos.findIndex((todo) => todo.id === actions.dropTargetId);
-            filterTodos.splice(findDropTodoTargetIndex, 0, actions.draggableItem)
-            store.activeTodoGroup.todos = filterTodos
+
+            if (findDragItem) {
+                filterTodos.splice(findDropTodoTargetIndex, 0, findDragItem)
+                store.activeTodoGroup.todos = filterTodos
+            }
+            return store;
+        })
+    },
+    dropTodoGroup: () => {
+        todoStore.update((store) => {
+            const findDragItem = store.todoGroups.find((todo) => todo.id == actions.draggableItemId);
+            let filterTodos = store.todoGroups.filter((todo) => todo.id !== actions.draggableItemId);
+            const findDropTodoTargetIndex = store.todoGroups.findIndex((todo) => todo.id === actions.dropTargetId);
+
+            if (findDragItem) {
+                filterTodos.splice(findDropTodoTargetIndex, 0, findDragItem)
+                store.todoGroups = filterTodos
+            }
             return store;
         })
     },

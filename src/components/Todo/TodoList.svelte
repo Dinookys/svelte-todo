@@ -6,7 +6,7 @@
   import { Positions } from "../ToolTip/ToolTip";
   import DropZone from "../Drop/DropZone.svelte";
   import DragItem from "../Drop/DragItem.svelte";
-  import { fade, fly, slide } from "svelte/transition";
+  import { fly } from "svelte/transition";
 
   let totalTodos = 0;
   let showModal = false;
@@ -62,10 +62,10 @@
         class="todo-list flex flex-col gap-2"
         on:drop={() => actions.dropTodo()}
       >
-        {#each $todoStore.activeTodoGroup.todos as todo, i (todo.id)}
+        {#each [...$todoStore.activeTodoGroup.todos].reverse() as todo, i (todo.id)}
           <DragItem
-            on:dragstart={(event) => actions.dragStartTodo(todo)}
-            on:dragover={(event) => actions.dragEnterTodo(todo.id)}
+            on:dragstart={(event) => actions.dragStart(todo.id)}
+            on:dragover={(event) => actions.dragEnter(todo.id)}
           >
             <div in:fly={{ y: 300 * i, duration: 300 }}>
               <TodoItem

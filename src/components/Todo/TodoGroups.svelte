@@ -8,6 +8,8 @@
   //ICONS
   import ChevronLeft from "svelte-icons/fa/FaChevronLeft.svelte";
   import ChevronRight from "svelte-icons/fa/FaChevronRight.svelte";
+  import DragItem from "../Drop/DragItem.svelte";
+  import DropZone from "../Drop/DropZone.svelte";
 
   export let showSidebar = true;
 
@@ -65,16 +67,23 @@
     </ToolTip>
   </div>
   <div class="todo-container">
-    <nav class="todo-list flex flex-col gap-4">
-      {#each $todoStore.todoGroups as todoGroup (todoGroup.id)}
-        <TodoGroup
-          {todoGroup}
-          isActive={$todoStore.activeIDTodoGroup === todoGroup.id}
-          on:active={() => active(todoGroup.id)}
-          on:remove={() => showBoxConfirmation(todoGroup.id)}
-        />
-      {/each}
-    </nav>
+    <DropZone on:drop={() => actions.dropTodoGroup()}>
+      <nav class="todo-list flex flex-col gap-2">
+        {#each [...$todoStore.todoGroups].reverse() as todoGroup (todoGroup.id)}
+          <DragItem
+            on:dragstart={(event) => actions.dragStart(todoGroup.id)}
+            on:dragover={(event) => actions.dragEnter(todoGroup.id)}
+          >
+            <TodoGroup
+              {todoGroup}
+              isActive={$todoStore.activeIDTodoGroup === todoGroup.id}
+              on:active={() => active(todoGroup.id)}
+              on:remove={() => showBoxConfirmation(todoGroup.id)}
+            />
+          </DragItem>
+        {/each}
+      </nav>
+    </DropZone>
   </div>
   <BoxConfirmation show={confirmRemove}>
     <div>Are you sure you want to delete this todo group?</div>
@@ -118,7 +127,7 @@
     position: fixed;
     transition: left 0.5s;
     top: 0;
-    bottom: 0;    
+    bottom: 0;
   }
 
   .wrapper-groups.showSidebar {

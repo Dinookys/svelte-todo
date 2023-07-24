@@ -19,12 +19,12 @@
 
 <div class="wrapper" class:showSidebar>
   <TodoGroups bind:showSidebar />
-  <div class="w-4/6">
+  <div class="w-full grow">
     {#if $todoStore.activeTodoGroup?.id}
       <TodoList />
     {/if}
   </div>
-  <div class="w-2/6">
+  <div class="tasks w-4/6">
     <TodoTasks />
   </div>
 </div>
@@ -39,5 +39,5 @@
 
   .wrapper.showSidebar {
     padding-left: var(--sidebarWidth);
-  }
+  }  
 </style>

@@ -7,12 +7,12 @@
 
 
   const dragStart = (event: DragEvent) => {
-    item.classList.add("dragitem");
+    item.classList.add("dragged");
     dispatch("dragstart", event);
   };
 
   const dragEnd = (event: DragEvent) => {
-    item.classList.remove("dragitem");
+    item.classList.remove("dragged");
     dispatch("dragend", event);
   };
 
@@ -35,7 +35,7 @@
   on:dragend={dragEnd}
   on:dragover={dragOver}
   {draggable}
-  class="border-2 border-transparent rounded-md"
+  class="dragitem"
 >
   <slot />
 </div>

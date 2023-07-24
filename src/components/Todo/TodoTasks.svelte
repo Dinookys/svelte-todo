@@ -86,7 +86,7 @@
     {#if todo && todo?.items?.length}
       <ul>
         <DropZone on:drop={() => onDrop()}>
-          {#each todo.items as item, i (item.id)}
+          {#each [...todo.items].reverse() as item, i (item.id)}
             <DragItem
               on:dragstart={() => onDragStart(item)}
               on:dragover={() => onDragOver(item.id)}

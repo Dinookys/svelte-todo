@@ -4,13 +4,18 @@
 
 .actions input,
 .actions textarea {
-    @apply w-full p-2 rounded-md m-0 bg-gray-600 border-2 border-yellow-700  outline-none focus:border-yellow-500  transition-colors
+    @apply w-full p-2 rounded-md m-0 bg-gray-600 border-2 border-yellow-700 outline-none focus:border-yellow-500 transition-colors
 }
 
 .dragitem {
-    @apply relative opacity-25 transition-all
+    @apply rounded-md border border-transparent;
+    transition: transform 0.3s ease;
 }
 
-.dragenter {
-    @apply relative border-dashed border-2 border-sky-800
+.dragged {
+    @apply relative border border-yellow-600
+}
+
+.dragenter:not(.dragged) {
+    @apply scale-95
 }
