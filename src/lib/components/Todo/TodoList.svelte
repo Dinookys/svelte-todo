@@ -1,7 +1,9 @@
 <script lang="ts">
   import TodoItem from "./TodoItem.svelte";
   import BoxConfirmation from "../BoxConfirmation.svelte";
-  import { todoStore, actions, type TodoItem as TodoType } from "./Todo";
+  import type { TodoItem as TodoType } from "./Types";
+  import { actions } from "./Todo";
+  import { todoStore } from "./TodoStore";
   import ToolTip from "../ToolTip/ToolTip.svelte";
   import { Positions } from "../ToolTip/ToolTip";
   import DropZone from "../Drop/DropZone.svelte";

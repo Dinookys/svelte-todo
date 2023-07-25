@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { todoStore, actions } from "./Todo";
   import TodoGroups from "./TodoGroups.svelte";
   import TodoList from "./TodoList.svelte";
+  import { todoStore, persistLocalData } from "./TodoStore";
   import TodoTasks from "./TodoTasks.svelte";
 
-  actions.persistData();
+  void persistLocalData();
 
   let showSidebar = true;
 
@@ -39,5 +39,5 @@
 
   .wrapper.showSidebar {
     padding-left: var(--sidebarWidth);
-  }  
+  }
 </style>

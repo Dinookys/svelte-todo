@@ -1,22 +1,6 @@
-import { onMount } from "svelte";
-import { writable } from "svelte/store";
+import { todoStore } from "./TodoStore";
+import type { TodoGroupItem, TodoItem } from "./Types";
 
-export type TodoItemSubItem = { id: number; text: string; completed: boolean; createdAt?: number; updatedAt?: number };
-export type TodoItem = { id: number; text: string; completed: boolean; createdAt?: number; updatedAt?: number, items: TodoItemSubItem[] };
-export type TodoGroupItem = { id: number; name: string; todos: TodoItem[] }
-export type TodoState = {
-    todoGroups: TodoGroupItem[];
-    activeTodoGroup: TodoGroupItem;
-    activeIDTodoGroup: number;
-    activeTodoItem: TodoItem;
-}
-
-export const todoStore = writable<TodoState>({
-    todoGroups: [],
-    activeTodoGroup: { id: 0, name: "", todos: [] } as TodoGroupItem,
-    activeIDTodoGroup: 0,
-    activeTodoItem: {} as TodoItem
-});
 
 export const actions = {
     draggableItemId: 0,
@@ -128,18 +112,6 @@ export const actions = {
                 store.todoGroups = filterTodos
             }
             return store;
-        })
-    },
-    persistData: () => {
-        onMount(() => {
-            if (localStorage?.todoStore) {
-                const store = JSON.parse(localStorage?.todoStore);
-                todoStore.set({ ...store });
-            }
-
-            todoStore.subscribe((store) => {
-                localStorage.setItem("todoStore", JSON.stringify(store));
-            })
         })
     }
 }

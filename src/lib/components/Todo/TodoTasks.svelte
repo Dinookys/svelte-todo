@@ -3,12 +3,9 @@
   import DropZone from "../Drop/DropZone.svelte";
   import { fly } from "svelte/transition";
 
-  import {
-    todoStore,
-    actions,
-    type TodoItemSubItem,
-    type TodoItem,
-  } from "./Todo";
+  import type { TodoItemSubItem, TodoItem } from "./Types";
+  import { actions } from "./Todo";
+  import { todoStore } from "./TodoStore";
 
   let todo = {} as TodoItem;
   let draggableItem = {} as TodoItemSubItem;

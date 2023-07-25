@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-  import type { TodoItemSubItem, TodoItem as TodoType } from "./Todo";
+  import type { TodoItemSubItem, TodoItem as TodoType } from "./Types";
 
   //ICONS
   import TrashIcon from "svelte-icons/fa/FaTrash.svelte";

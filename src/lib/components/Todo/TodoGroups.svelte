@@ -1,7 +1,8 @@
 <script lang="ts">
-  import { todoStore, actions } from "./Todo";
+  import { actions } from "./Todo";
+  import { todoStore } from "./TodoStore";
   import TodoGroup from "./TodoGroup.svelte";
-  import BoxConfirmation from "./../BoxConfirmation.svelte";
+  import BoxConfirmation from "../BoxConfirmation.svelte";
   import ToolTip from "../ToolTip/ToolTip.svelte";
   import { Positions } from "../ToolTip/ToolTip";
 
