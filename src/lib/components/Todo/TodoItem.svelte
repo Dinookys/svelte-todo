@@ -5,6 +5,8 @@
   //ICONS
   import TrashIcon from "svelte-icons/fa/FaTrash.svelte";
   import PenIcon from "svelte-icons/fa/FaPen.svelte";
+  import FaCheck from "svelte-icons/fa/FaCheck.svelte";
+  import FaCircle from "svelte-icons/fa/FaRegCircle.svelte";
 
   export let todo = {
     text: "",
@@ -32,18 +34,25 @@
 </script>
 
 <div
-  class="todo-item text-xs flex items-center rounded-md text-slate-50 transition-colors hover:bg-slate-500 {isActive ?
-    'bg-slate-500' : 'bg-slate-600'}"
+  class="todo-item text-xs flex items-center rounded-md text-slate-50 transition-colors hover:bg-slate-500 {isActive
+    ? 'bg-slate-500'
+    : 'bg-slate-600'}"
   class:completed={isCompleted}
   {...$$restProps}
 >
   <div class="flex-shrink">
     <button
       on:click|preventDefault={() => (isCompleted = !isCompleted)}
-      class="text rounded-full border w-6 h-6 ml-3 border-none {isCompleted
-        ? 'bg-yellow-700'
-        : 'bg-slate-100'}"><span /></button
+      class="text rounded-full border w-6 h-6 p-1 ml-3 border-none {isCompleted
+        ? 'text-yellow-700'
+        : 'text-slate-100'}"
     >
+      {#if isCompleted}
+        <FaCheck />
+      {:else}
+        <FaCircle />
+      {/if}
+    </button>
   </div>
 
   <div class="todo-text p-3 w-10/12">

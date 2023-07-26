@@ -1,16 +1,26 @@
 <script lang="ts">
   import { fly } from "svelte/transition";
   import { clickOutside } from "$lib/actions/outside";
+  import { createEventDispatcher } from "svelte";
 
   export let showTopCloseButton = true;
   export let show = false;
+
+  const dispatch = createEventDispatcher();
+
+  const closeModal = () => {
+    show = false;
+    dispatch("close");
+  };
+
+  $: !show && dispatch("close");
 </script>
 
 {#if show}
   <div
     class="box-confirmation shadow-lg"
     transition:fly={{ y: -50 }}
-    use:clickOutside={() => (show = false)}
+    use:clickOutside={closeModal}
   >
     <div
       class="box-confirmation-content bg-slate-700 text-white rounded-md border-slate-600 border"
@@ -18,8 +28,9 @@
       {#if showTopCloseButton}
         <div class="box-confirmation-action mx-2">
           <button
-            on:click|preventDefault={() => (show = false)}
-            class="text-white hover:text-red-600 transition-colors">&times;</button
+            on:click|preventDefault={closeModal}
+            class="text-white hover:text-red-600 transition-colors"
+            >&times;</button
           >
         </div>
       {/if}

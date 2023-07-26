@@ -49,10 +49,17 @@
     removeGroupId = 0;
   };
 
-  const showModalEdit = (todoGroup: TodoGroupItem) => {
-    editTodoGroup = todoGroup;
-    orignalTodo = JSON.parse(JSON.stringify(todoGroup));
-    showEdit = true;
+  const showModalEdit = async (todoGroup: TodoGroupItem) => {
+    showEdit = !showEdit;
+
+    if (!showEdit) {
+      return;
+    }
+
+    if (showEdit) {
+      editTodoGroup = todoGroup;
+      orignalTodo = JSON.parse(JSON.stringify(todoGroup));
+    }
   };
 
   const closeModalEdit = () => {
@@ -64,7 +71,7 @@
 </script>
 
 <aside
-  class="wrapper-groups bg-slate-800 flex flex-col overflow-auto"
+  class="wrapper-groups bg-slate-800 flex flex-col overflow-auto p-4"
   class:showSidebar
 >
   <div class="actions mb-6">
@@ -140,7 +147,7 @@
   </div>
 </Dialog>
 
-<Dialog bind:show={showEdit}>
+<Dialog show={showEdit}  on:close={() => setTimeout(() => showEdit = false, 100)}>
   <div class="actions w-96">
     <textarea bind:value={editTodoGroup.name} />
   </div>
@@ -152,7 +159,6 @@
 <style>
   .wrapper-groups {
     width: var(--sidebarWidth);
-    padding: 1rem;
     left: calc(var(--sidebarWidth) * -1);
     position: fixed;
     transition: left 0.5s;

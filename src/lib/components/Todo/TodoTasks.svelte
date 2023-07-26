@@ -66,7 +66,7 @@
 >
   <div class="tasks p-3">
     {#if todo}
-      <div class="actions mb-4">
+      <div class="actions mb-4 pt-2">
         <input
           type="text"
           class="w-full"

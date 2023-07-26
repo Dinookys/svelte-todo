@@ -23,8 +23,8 @@
   };
 
   const showModalEdit = (todo: TodoType) => {
+    showModal = !showModal;
     todoToEdit = todo;
-    showModal = true;
   };
 
   const closeModalEdit = () => {
@@ -39,8 +39,8 @@
 </script>
 
 <div>
-  <section class="wrapper-todos overflow-auto h-screen">
-    <div class="p-2 mt-3">
+  <section class="wrapper-todos overflow-auto h-screen px-4 py-2">
+    <div class="my-3 sticky top-0">
       <div class="actions">
         <ToolTip position={Positions.BottomRight} class="flex-1">
           <input
@@ -57,11 +57,11 @@
       </div>
     </div>
 
-    <h3 class="text-slate-50 p-2 m-2 rounded-md text-center bg-yellow-700 mb-4">
+    <h3 class="text-slate-50 p-2 my-4 rounded-md text-center bg-yellow-700 mb-4">
       {$todoStore.activeTodoGroup.name}
     </h3>
 
-    <div class="todo-container p-2">
+    <div class="todo-container">
       <DropZone
         class="todo-list flex flex-col gap-2"
         on:drop={() => actions.dropTodo()}
@@ -93,7 +93,7 @@
   </section>  
 </div>
 
-<Dialog bind:show={showModal}>
+<Dialog show={showModal} on:close={() => setTimeout(() => showModal = false, 100)} >
   <div class="actions w-96">
     <div class="actions">
       <textarea style="width: 100%;" bind:value={todoToEdit.text} />
