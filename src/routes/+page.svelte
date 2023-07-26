@@ -3,8 +3,8 @@
 </script>
 
 <svelte:head>
-  <title>Todo List</title>
-  <meta name="description" content="Todo List" />
+  <title>Todo</title>
+  <meta name="description" content="Todo" />
 </svelte:head>
 
 <section class="flex flex-col items-center flex-1 bg-slate-700">

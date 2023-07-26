@@ -1,5 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
+  import FaPen from "svelte-icons/fa/FaPen.svelte";
+  import FaTrash from "svelte-icons/fa/FaTrash.svelte";
 
   const dispatch = createEventDispatcher();
 
@@ -13,9 +15,9 @@
 </script>
 
 <div
-  class="todo-group flex rounded-md {isActive
+  class="todo-group flex text-white hover:bg-slate-500 transition-colors rounded-md {isActive
     ? 'bg-slate-500'
-    : 'bg-slate-700 text-white'}"
+    : 'bg-slate-700 '}"
 >
   <button
     class="grow text-left p-2"
@@ -23,7 +25,19 @@
     class:active={isActive}>{todoGroup.name}</button
   >
   <button
-    class="p-2 bg-transparent text-white border-l border-l-slate-800 rounded-r-md hover:bg-red-600 transition-colors"
-    on:click={() => dispatch("remove", todoGroup.id)}>&times;</button
+    class="p-2 bg-transparent text-white border-l border-l-slate-800 hover:text-blue-600 transition-colors"
+    on:click={() => dispatch("edit", todoGroup)}
   >
+    <span class="block w-3 h-3">
+      <FaPen />
+    </span>
+  </button>
+  <button
+    class="p-2 bg-transparent text-white border-l border-l-slate-800 rounded-r-md hover:text-red-600 transition-colors"
+    on:click={() => dispatch("remove", todoGroup.id)}
+  >
+    <span class="block w-3 h-3">
+      <FaTrash />
+    </span>
+  </button>
 </div>

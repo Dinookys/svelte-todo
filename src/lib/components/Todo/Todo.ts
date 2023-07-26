@@ -20,10 +20,24 @@ export const actions = {
                     return {
                         ...todo,
                         ...item,
-                        updatedAt: Date.now(),
+                        updatedAt: todo.text !== item.text ? Date.now() : todo.updatedAt,
                     };
                 }
                 return todo;
+            });
+            return store;
+        })
+    },
+    updateTodoGroup: (item: TodoGroupItem) => {
+        todoStore.update((store) => {
+            store.todoGroups = store.todoGroups.map((group) => {
+                if (group.id === item.id) {
+                    return {
+                        ...group,
+                        ...item
+                    };
+                }
+                return group;
             });
             return store;
         })

@@ -1,27 +1,39 @@
 <script lang="ts">
-  export let showTopCloseButton = false;
+  import { fly } from "svelte/transition";
+  import { clickOutside } from "$lib/actions/outside";
+
+  export let showTopCloseButton = true;
   export let show = false;
 </script>
 
-<div class="box-confirmation shadow-lg" class:show>
-  <div class="box-confirmation-content bg-slate-700 text-white rounded-md">
-    {#if showTopCloseButton}
-      <div class="box-confirmation-action">
-        <button on:click|preventDefault={() => (show = false)}>&times;</button
-        >
-      </div>
-    {/if}
+{#if show}
+  <div
+    class="box-confirmation shadow-lg"
+    transition:fly={{ y: -50 }}
+    use:clickOutside={() => (show = false)}
+  >
+    <div
+      class="box-confirmation-content bg-slate-700 text-white rounded-md border-slate-600 border"
+    >
+      {#if showTopCloseButton}
+        <div class="box-confirmation-action mx-2">
+          <button
+            on:click|preventDefault={() => (show = false)}
+            class="text-white hover:text-red-600 transition-colors">&times;</button
+          >
+        </div>
+      {/if}
 
-    <div class="box-confirmation-body">
-      <slot />
+      <div class="box-confirmation-body">
+        <slot />
+      </div>
     </div>
   </div>
-</div>
+{/if}
 
 <style>
   .box-confirmation {
     transform: translateX(-50%);
-    transition: top 0.5s linear;
     justify-content: center;
     align-items: flex-start;
     position: fixed;
@@ -29,11 +41,7 @@
     display: flex;
     z-index: 9999;
     left: 50%;
-    top: -100%;
-  }
-
-  .show {
-    top: 0;
+    top: 30px;
   }
 
   .box-confirmation-content {
@@ -56,10 +64,5 @@
     cursor: pointer;
     border: none;
     font-size: 25px;
-    color: white;
-  }
-
-  .box-confirmation-content .box-confirmation-action button:hover {
-    color: rgba(255, 255, 255, 0.7);
   }
 </style>

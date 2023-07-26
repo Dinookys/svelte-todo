@@ -1,6 +1,6 @@
 <script lang="ts">
   import TodoItem from "./TodoItem.svelte";
-  import BoxConfirmation from "../BoxConfirmation.svelte";
+  import Dialog from "../Dialog.svelte";
   import type { TodoItem as TodoType } from "./Types";
   import { actions } from "./Todo";
   import { todoStore } from "./TodoStore";
@@ -13,7 +13,6 @@
   let totalTodos = 0;
   let showModal = false;
   let todoToEdit = {} as TodoType;
-  let originalTodoToEdit = {} as TodoType;
 
   const addTodo = (event: KeyboardEvent) => {
     const input = event.target as HTMLInputElement;
@@ -25,19 +24,22 @@
 
   const showModalEdit = (todo: TodoType) => {
     todoToEdit = todo;
-    originalTodoToEdit = JSON.parse(JSON.stringify(todo));
     showModal = true;
+  };
+
+  const closeModalEdit = () => {
+    todoToEdit = {} as TodoType;
+    showModal = false;
   };
 
   $: {
     totalTodos = $todoStore.activeTodoGroup.todos.length;
-    if (todoToEdit != originalTodoToEdit) actions.updateTodo(todoToEdit);
+    actions.updateTodo(todoToEdit);
   }
 </script>
 
 <div>
   <section class="wrapper-todos overflow-auto h-screen">
-
     <div class="p-2 mt-3">
       <div class="actions">
         <ToolTip position={Positions.BottomRight} class="flex-1">
@@ -76,7 +78,7 @@
                 on:edit={(event) => showModalEdit(event.detail)}
                 on:update={(event) => actions.updateTodo(event.detail)}
                 on:active={() => actions.setActiveTodo(todo)}
-                isActive={todo.id === $todoStore.activeTodoItem.id}            
+                isActive={todo.id === $todoStore.activeTodoItem.id}
               />
             </div>
           </DragItem>
@@ -88,19 +90,16 @@
         {/if}
       </DropZone>
     </div>
-  </section>
-
-  <BoxConfirmation bind:show={showModal}>
-    <div style="min-width: 250px;">
-      <p class="actions">
-        <textarea style="width: 100%;" bind:value={todoToEdit.text} />
-      </p>
-      <div class="text-center">
-        <button
-          class="text-slate-500 hover:text-slate-400 text-xs"
-          on:click={() => (showModal = false)}>Close</button
-        >
-      </div>
-    </div>
-  </BoxConfirmation>
+  </section>  
 </div>
+
+<Dialog bind:show={showModal}>
+  <div class="actions w-96">
+    <div class="actions">
+      <textarea style="width: 100%;" bind:value={todoToEdit.text} />
+    </div>
+    <div class="text-center">
+      <button type="button" on:click={closeModalEdit}>Close</button>
+    </div>
+  </div>
+</Dialog>

@@ -1,21 +1,26 @@
 <script lang="ts">
   import { actions } from "./Todo";
   import { todoStore } from "./TodoStore";
-  import TodoGroup from "./TodoGroup.svelte";
-  import BoxConfirmation from "../BoxConfirmation.svelte";
-  import ToolTip from "../ToolTip/ToolTip.svelte";
+  import type { TodoGroupItem } from "./Types";
   import { Positions } from "../ToolTip/ToolTip";
+
+  import TodoGroup from "./TodoGroup.svelte";
+  import Dialog from "../Dialog.svelte";
+  import ToolTip from "../ToolTip/ToolTip.svelte";
+  import DragItem from "../Drop/DragItem.svelte";
+  import DropZone from "../Drop/DropZone.svelte";
 
   //ICONS
   import ChevronLeft from "svelte-icons/fa/FaChevronLeft.svelte";
   import ChevronRight from "svelte-icons/fa/FaChevronRight.svelte";
-  import DragItem from "../Drop/DragItem.svelte";
-  import DropZone from "../Drop/DropZone.svelte";
 
   export let showSidebar = true;
 
   let confirmRemove = false;
   let removeGroupId = 0;
+  let showEdit = false;
+  let editTodoGroup = {} as TodoGroupItem;
+  let orignalTodo = {} as TodoGroupItem;
 
   const addTodoGroup = (event: KeyboardEvent) => {
     const input = event.target as HTMLInputElement;
@@ -31,18 +36,31 @@
 
   const confirmRemoveItem = (index: number) => {
     actions.removeTodoGroup(index);
-    closeBoxConfirmation();
+    closeDialog();
   };
 
-  const showBoxConfirmation = (index: number) => {
+  const showDialog = (index: number) => {
     removeGroupId = index;
     confirmRemove = true;
   };
 
-  const closeBoxConfirmation = () => {
+  const closeDialog = () => {
     confirmRemove = false;
     removeGroupId = 0;
   };
+
+  const showModalEdit = (todoGroup: TodoGroupItem) => {
+    editTodoGroup = todoGroup;
+    orignalTodo = JSON.parse(JSON.stringify(todoGroup));
+    showEdit = true;
+  };
+
+  const closeModalEdit = () => {
+    editTodoGroup = {} as TodoGroupItem;
+    showEdit = false;
+  };
+
+  $: actions.updateTodoGroup(editTodoGroup);
 </script>
 
 <aside
@@ -79,28 +97,14 @@
               {todoGroup}
               isActive={$todoStore.activeIDTodoGroup === todoGroup.id}
               on:active={() => active(todoGroup.id)}
-              on:remove={() => showBoxConfirmation(todoGroup.id)}
+              on:remove={() => showDialog(todoGroup.id)}
+              on:edit={(event) => showModalEdit(event.detail)}
             />
           </DragItem>
         {/each}
       </nav>
     </DropZone>
   </div>
-  <BoxConfirmation show={confirmRemove}>
-    <div>Are you sure you want to delete this todo group?</div>
-    <div class="flex justify-between mt-3 pt-3 border-t border-t-slate-800">
-      <button
-        class="text-slate-500 hover:text-slate-400 text-xs"
-        type="button"
-        on:click={() => closeBoxConfirmation()}>Cancel</button
-      >
-      <button
-        type="button"
-        class="text-red-600 hover:text-red-500 text-xs"
-        on:click={() => confirmRemoveItem(removeGroupId)}>Confirm</button
-      >
-    </div>
-  </BoxConfirmation>
   <div class="todo-key" class:hiddenSidebar={!showSidebar}>
     <ToolTip position={Positions.TopLeft}>
       <div slot="toolTipText">
@@ -119,6 +123,31 @@
     </ToolTip>
   </div>
 </aside>
+
+<Dialog show={confirmRemove}>
+  <div>Are you sure you want to delete this todo group?</div>
+  <div class="flex justify-between mt-3 pt-3 border-t border-t-slate-800">
+    <button
+      class="text-slate-500 hover:text-slate-400 text-xs"
+      type="button"
+      on:click={() => closeDialog()}>Cancel</button
+    >
+    <button
+      type="button"
+      class="text-red-600 hover:text-red-500 text-xs"
+      on:click={() => confirmRemoveItem(removeGroupId)}>Confirm</button
+    >
+  </div>
+</Dialog>
+
+<Dialog bind:show={showEdit}>
+  <div class="actions w-96">
+    <textarea bind:value={editTodoGroup.name} />
+  </div>
+  <div class="text-center">
+    <button type="button" on:click={closeModalEdit}>Close</button>
+  </div>
+</Dialog>
 
 <style>
   .wrapper-groups {
