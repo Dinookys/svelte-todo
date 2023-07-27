@@ -57,7 +57,7 @@
       </div>
     </div>
 
-    <h3 class="text-slate-50 p-2 my-4 rounded-md text-center bg-yellow-700 mb-4">
+    <h3 class="py-2 my-4 border-b-primary-600 border-b text-primary-600 mb-4">
       {$todoStore.activeTodoGroup.name}
     </h3>
 
@@ -84,7 +84,7 @@
           </DragItem>
         {/each}
         {#if totalTodos === 0}
-          <div class="no-todos text-yellow-700 font-semibold text-center">
+          <div class="no-todos text-primary-600 font-semibold text-center">
             No todos
           </div>
         {/if}

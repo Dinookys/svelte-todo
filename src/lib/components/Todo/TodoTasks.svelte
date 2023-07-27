@@ -76,9 +76,9 @@
       </div>
     {/if}
     {#if todo?.text}
-      <div class="bg-yellow-700 rounded-md p-2 text-md text-center mb-4">
+      <h3 class="py-2 my-4 border-b-primary-600 border-b text-primary-600 mb-4">
         {todo.text.length > 40 ? todo?.text?.slice(0, 40) + "..." : todo.text}
-      </div>
+      </h3>
     {/if}
     {#if todo && todo?.items?.length}
       <ul>
@@ -88,16 +88,19 @@
               on:dragstart={() => onDragStart(item)}
               on:dragover={() => onDragOver(item.id)}
             >
-              <li class="flex justify-between p-2 bg-slate-700 rounded-md my-1" in:fly={{ y: 300, delay: i * 100 }} >
+              <li
+                class="flex justify-between p-2 bg-slate-600 rounded-md my-1"
+                in:fly={{ y: 300, delay: i * 100 }}
+              >
                 <button
                   class="task-text text-white {item.completed &&
-                    'line-through text-slate-600'} "
+                    'line-through text-slate-500'} "
                   on:click|preventDefault={(event) =>
                     updateTask({ ...item, completed: !item.completed })}
                   >{item.text}</button
                 >
                 <button
-                  class="hover:text-red-500 text-white"
+                  class="hover:text-red-400 text-white"
                   on:click|preventDefault={() => removeTask(item.id)}
                   >&times</button
                 >

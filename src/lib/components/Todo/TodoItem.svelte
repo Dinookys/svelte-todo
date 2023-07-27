@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, tick } from "svelte";
+  import { fly } from "svelte/transition";
   import type { TodoItemSubItem, TodoItem as TodoType } from "./Types";
 
   //ICONS
@@ -34,8 +35,8 @@
 </script>
 
 <div
-  class="todo-item text-xs flex items-center rounded-md text-slate-50 transition-colors hover:bg-slate-500 {isActive
-    ? 'bg-slate-500'
+  class="todo-item text-xs flex items-center rounded-md text-slate-50 transition-colors hover:bg-slate-800 group {isActive
+    ? 'bg-slate-800'
     : 'bg-slate-600'}"
   class:completed={isCompleted}
   {...$$restProps}
@@ -44,19 +45,27 @@
     <button
       on:click|preventDefault={() => (isCompleted = !isCompleted)}
       class="text rounded-full border w-6 h-6 p-1 ml-3 border-none {isCompleted
-        ? 'text-yellow-700'
+        ? 'text-primary-600'
         : 'text-slate-100'}"
     >
       {#if isCompleted}
-        <FaCheck />
+        <span transition:fly={{ y: -5, duration: 50 }}>
+          <FaCheck />
+        </span>
       {:else}
-        <FaCircle />
+        <span transition:fly={{ y: -5, duration: 50 }}>
+          <FaCircle />
+        </span>
       {/if}
     </button>
   </div>
 
   <div class="todo-text p-3 w-10/12">
-    <button class="text text-left w-full" on:click={() => dispatch("active")}>
+    <button
+      class="text text-left w-full group-hover:text-primary-600 {isActive &&
+        'text-primary-600'}"
+      on:click={() => dispatch("active")}
+    >
       {todo.text}
     </button>
   </div>
@@ -69,20 +78,20 @@
     {#if !isCompleted}
       <button
         on:click={() => dispatch("edit", todo)}
-        class="text-white hover:text-blue-600 transition-colors w-3 h-3"
+        class="text-white hover:text-blue-500 transition-colors w-3 h-3"
       >
         <PenIcon />
       </button>
     {/if}
     <button
-      class="text-white hover:text-red-600 transition-colors w-3 h-3"
+      class="text-white hover:text-red-500 transition-colors w-3 h-3"
       on:click={() => dispatch("remove", todo.id)}
     >
       <TrashIcon />
     </button>
   </div>
 </div>
-<div class="date text-slate-500 p-1" style="font-size: 10px;">
+<div class="date text-slate-400 p-1" style="font-size: 10px;">
   <span>Criado: {formatDate(todo.createdAt || 0)}</span> |
   <span>Atualizado: {formatDate(todo.updatedAt || 0)}</span>
 </div>

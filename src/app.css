@@ -2,9 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .actions input,
 .actions textarea {
-    @apply w-full p-2 rounded-md m-0 bg-gray-600 border-2 border-yellow-700 outline-none focus:border-yellow-500 transition-colors
+    @apply w-full p-2 rounded-md m-0 bg-gray-600 border-2 border-primary-600 outline-none focus:border-primary-500 transition-colors
 }
 
 .dragitem {
@@ -13,9 +14,30 @@
 }
 
 .dragged {
-    @apply relative border border-yellow-600
+    @apply relative border border-primary-600
 }
 
 .dragenter:not(.dragged) {
     @apply scale-95
 }
+
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+	background-color: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+	transition: background-color 0.3s ease;
+	@apply bg-primary-600;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+	@apply bg-primary-500;
+  }

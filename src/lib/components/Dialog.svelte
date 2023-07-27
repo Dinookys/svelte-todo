@@ -23,13 +23,13 @@
     use:clickOutside={closeModal}
   >
     <div
-      class="box-confirmation-content bg-slate-700 text-white rounded-md border-slate-600 border"
+      class="box-confirmation-content bg-slate-600 text-white rounded-md border-slate-500 border"
     >
       {#if showTopCloseButton}
         <div class="box-confirmation-action mx-2">
           <button
             on:click|preventDefault={closeModal}
-            class="text-white hover:text-red-600 transition-colors"
+            class="text-white hover:text-red-500 transition-colors"
             >&times;</button
           >
         </div>

@@ -118,7 +118,7 @@
         <kbd>Crtl+b</kbd> to show/hide sidebar
       </div>
       <button
-        class="bg-yellow-700 text-white flex justify-center items-center rounded-full w-8 h-8 p-2 font-mono"
+        class="bg-primary-600 text-white flex justify-center items-center rounded-full w-8 h-8 p-2 font-mono"
         on:click={() => (showSidebar = !showSidebar)}
       >
         {#if showSidebar}
@@ -135,13 +135,13 @@
   <div>Are you sure you want to delete this todo group?</div>
   <div class="flex justify-between mt-3 pt-3 border-t border-t-slate-800">
     <button
-      class="text-slate-500 hover:text-slate-400 text-xs"
+      class="text-slate-400 hover:text-slate-300 text-xs"
       type="button"
       on:click={() => closeDialog()}>Cancel</button
     >
     <button
       type="button"
-      class="text-red-600 hover:text-red-500 text-xs"
+      class="text-red-500 hover:text-red-400 text-xs"
       on:click={() => confirmRemoveItem(removeGroupId)}>Confirm</button
     >
   </div>

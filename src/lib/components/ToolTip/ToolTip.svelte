@@ -98,7 +98,7 @@
 </script>
 
 <div    
-  class="tooltip bg-yellow-700 text-xs text-white rounded-md p-2 {toolTipClass}"
+  class="tooltip bg-primary-500 text-xs text-white rounded-md p-2 {toolTipClass}"
   class:enter={enterTooltip}
   class:show={showTooltip}
   style="left: {toolTipLeftPosition}px; top: {toolTipTopPosition}px; {toolTipWidth &&
