@@ -147,7 +147,7 @@
   </div>
 </Dialog>
 
-<Dialog show={showEdit}  on:close={() => setTimeout(() => showEdit = false, 100)}>
+<Dialog show={showEdit}  on:afterClose={() => showEdit = false}>
   <div class="actions w-96">
     <textarea bind:value={editTodoGroup.name} />
   </div>

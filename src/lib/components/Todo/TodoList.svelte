@@ -8,7 +8,7 @@
   import { Positions } from "../ToolTip/ToolTip";
   import DropZone from "../Drop/DropZone.svelte";
   import DragItem from "../Drop/DragItem.svelte";
-  import { fly } from "svelte/transition";
+  import { fade, fly } from "svelte/transition";
 
   let totalTodos = 0;
   let showModal = false;
@@ -40,7 +40,7 @@
 
 <div>
   <section class="wrapper-todos overflow-auto h-screen px-4 py-2">
-    <div class="my-3 sticky top-0">
+    <div class="my-3 sticky top-0 z-40">
       <div class="actions">
         <ToolTip position={Positions.BottomRight} class="flex-1">
           <input
@@ -57,9 +57,17 @@
       </div>
     </div>
 
-    <h3 class="py-2 my-4 border-b-primary-600 border-b text-primary-600 mb-4">
-      {$todoStore.activeTodoGroup.name}
-    </h3>
+    <div class="border-b-primary-600 border-b overflow-hidden relative font-bold h-12 my-4 mb-4 flex items-center tracking-widest uppercase" >
+      {#key $todoStore.activeTodoGroup.id}
+        <h3
+          class="text-primary-600 absolute"
+          in:fly={{ x: -200, delay: 400, duration: 100 }}
+          out:fly={{ x: -200, duration: 300 }}
+        >
+          {$todoStore.activeTodoGroup.name}
+        </h3>
+      {/key}
+    </div>
 
     <div class="todo-container">
       <DropZone
@@ -71,7 +79,7 @@
             on:dragstart={(event) => actions.dragStart(todo.id)}
             on:dragover={(event) => actions.dragEnter(todo.id)}
           >
-            <div in:fly={{ y: 300 * i, duration: 300 }}>
+            <div in:fade={{ delay: 50 * (i + 1), duration: 300 }}>
               <TodoItem
                 {todo}
                 on:remove={() => actions.removeTodo(todo.id)}
@@ -90,10 +98,13 @@
         {/if}
       </DropZone>
     </div>
-  </section>  
+  </section>
 </div>
 
-<Dialog show={showModal} on:close={() => setTimeout(() => showModal = false, 100)} >
+<Dialog
+  show={showModal}
+  on:afterClose={() => showModal = false}
+>
   <div class="actions w-96">
     <div class="actions">
       <textarea style="width: 100%;" bind:value={todoToEdit.text} />

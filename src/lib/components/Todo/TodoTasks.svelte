@@ -59,6 +59,9 @@
   };
 
   $: todo = $todoStore.activeTodoItem;
+
+  $: shortedTitle =
+    todo.text?.length > 50 ? `${todo.text.slice(0, 50)}...` : todo.text;
 </script>
 
 <div
@@ -76,9 +79,19 @@
       </div>
     {/if}
     {#if todo?.text}
-      <h3 class="py-2 my-4 border-b-primary-600 border-b text-primary-600 mb-4">
-        {todo.text.length > 40 ? todo?.text?.slice(0, 40) + "..." : todo.text}
-      </h3>
+      <div
+        class="border-b-primary-600 border-b overflow-x-hidden relative w-full font-bold h-12 my-4 pb-1 flex items-center tracking-widest"
+      >
+        {#key todo}
+          <h3
+            class="text-primary-600 text-xs absolute whitespace-nowrap"
+            in:fly={{ x: -200, delay: 400, duration: 100 }}
+            out:fly={{ x: -200, duration: 300 }}
+          >
+            {shortedTitle}
+          </h3>
+        {/key}
+      </div>
     {/if}
     {#if todo && todo?.items?.length}
       <ul>

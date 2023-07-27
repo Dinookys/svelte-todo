@@ -5,21 +5,36 @@
 
   export let showTopCloseButton = true;
   export let show = false;
+  export let duration = 300;
 
   const dispatch = createEventDispatcher();
+  let afterCloseTimeOut: ReturnType<typeof setTimeout> | null = null;
 
   const closeModal = () => {
     show = false;
     dispatch("close");
   };
 
-  $: !show && dispatch("close");
+  const afterClose = () => {
+    if (afterCloseTimeOut) {
+      clearTimeout(afterCloseTimeOut);
+    }
+
+    afterCloseTimeOut = setTimeout(() => {
+      dispatch("afterClose");
+    }, duration);
+  };
+
+  $: if (!show) {
+    dispatch("close");
+    afterClose();
+  }
 </script>
 
 {#if show}
   <div
     class="box-confirmation shadow-lg"
-    transition:fly={{ y: -50 }}
+    transition:fly={{ y: -50, duration }}
     use:clickOutside={closeModal}
   >
     <div
