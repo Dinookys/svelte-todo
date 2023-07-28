@@ -1,11 +1,11 @@
 <script lang="ts">
-  import DragItem from "../Drop/DragItem.svelte";
-  import DropZone from "../Drop/DropZone.svelte";
+  
   import { fly } from "svelte/transition";
 
   import type { TodoItemSubItem, TodoItem } from "./Types";
   import { actions } from "./Todo";
   import { todoStore } from "./TodoStore";
+  import { dragItem, dropZone } from "../../actions/dragDrop";
 
   let todo = {} as TodoItem;
   let draggableItem = {} as TodoItemSubItem;
@@ -94,33 +94,28 @@
       </div>
     {/if}
     {#if todo && todo?.items?.length}
-      <ul>
-        <DropZone on:drop={() => onDrop()}>
-          {#each [...todo.items].reverse() as item, i (item.id)}
-            <DragItem
-              on:dragstart={() => onDragStart(item)}
-              on:dragover={() => onDragOver(item.id)}
+      <ul use:dropZone on:drop={() => onDrop()}>
+        {#each [...todo.items].reverse() as item, i (item.id)}
+          <li
+            use:dragItem
+            on:dragstart={() => onDragStart(item)}
+            on:dragover={() => onDragOver(item.id)}
+            class="flex justify-between p-2 bg-slate-600 rounded-md my-2"
+            in:fly={{ y: 300, delay: i * 100 }}
+          >
+            <button
+              class="task-text text-white text-left {item.completed &&
+                'line-through text-slate-500'} "
+              on:click|preventDefault={(event) =>
+                updateTask({ ...item, completed: !item.completed })}
+              >{item.text}</button
             >
-              <li
-                class="flex justify-between p-2 bg-slate-600 rounded-md my-1"
-                in:fly={{ y: 300, delay: i * 100 }}
-              >
-                <button
-                  class="task-text text-white {item.completed &&
-                    'line-through text-slate-500'} "
-                  on:click|preventDefault={(event) =>
-                    updateTask({ ...item, completed: !item.completed })}
-                  >{item.text}</button
-                >
-                <button
-                  class="hover:text-red-400 text-white"
-                  on:click|preventDefault={() => removeTask(item.id)}
-                  >&times</button
-                >
-              </li>
-            </DragItem>
-          {/each}
-        </DropZone>
+            <button
+              class="hover:text-red-400 text-white"
+              on:click|preventDefault={() => removeTask(item.id)}>&times</button
+            >
+          </li>
+        {/each}
       </ul>
     {/if}
   </div>

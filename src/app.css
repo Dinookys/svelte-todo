@@ -9,12 +9,12 @@
 }
 
 .dragitem {
-    @apply rounded-md border border-transparent;
+    /* @apply rounded-md border border-transparent; */
     transition: transform 0.3s ease;
 }
 
 .dragged {
-    @apply relative border border-primary-600
+    /* @apply relative border border-primary-600 */
 }
 
 .dragenter:not(.dragged) {

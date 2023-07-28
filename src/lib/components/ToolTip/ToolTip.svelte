@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Positions } from "./ToolTip";
+  import {tick} from "svelte";
 
   export let el = "span";  
   export let toolTipText = "Text";
@@ -21,17 +22,19 @@
 
     if(!element) return {top: 0, left: 0}
 
+    const viewportOffset = element.getBoundingClientRect();
+
     const toolTipDialogHeight = toolTipDialog.offsetHeight;
     const toolTipDialogWidth = toolTipDialog.offsetWidth;
     const elementWidth = element.offsetWidth;
     const elementHeight = element.offsetHeight;
 
-    const topToolTip = element.offsetTop - (toolTipDialogHeight + 2);
-    const bottomToolTip = element.offsetTop + toolTipDialogHeight +  (elementHeight / 2);
-    const centerXToolTip = element.offsetLeft + elementWidth / 2 - toolTipDialogWidth / 2;
-    const centerYToolTip = element.offsetTop - toolTipDialogHeight / 2 + elementHeight / 2;
-    const rightToolTip = element.offsetLeft + elementWidth - toolTipDialogWidth;
-    const leftToolTip = element.offsetLeft;
+    const topToolTip = viewportOffset.top - toolTipDialogHeight -  4;
+    const bottomToolTip = viewportOffset.top + ( toolTipDialogHeight/2 ) +  elementHeight;
+    const centerXToolTip = viewportOffset.left + elementWidth / 2 - toolTipDialogWidth / 2;
+    const centerYToolTip = viewportOffset.top - toolTipDialogHeight / 2 + elementHeight / 2;
+    const rightToolTip = (viewportOffset.left + elementWidth) - toolTipDialogWidth;
+    const leftToolTip = viewportOffset.left;
 
     switch (position) {
       case Positions.BottomCenter:
@@ -89,11 +92,11 @@
   };
 
   $: {
-    setTimeout(() => {
+    tick().then(() => {
       toolTipTopPosition = getParentPosition().top;
       toolTipLeftPosition = getParentPosition().left;
-      showTooltip = enterTooltip;
-    }, 1);
+      showTooltip = enterTooltip;      
+    })
   }
 </script>
 
@@ -121,7 +124,7 @@
 
 <style>
   .tooltip {
-    position: absolute;    
+    position: fixed;    
     filter: opacity(0);
     transform: scale(0);
     transition: filter 0.3s;

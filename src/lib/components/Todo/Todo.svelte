@@ -24,7 +24,7 @@
       <TodoList />
     {/if}
   </div>
-  <div class="tasks w-4/6">
+  <div class="tasks w-4/12">
     <TodoTasks />
   </div>
 </div>

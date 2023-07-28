@@ -6,9 +6,8 @@
 
   import TodoGroup from "./TodoGroup.svelte";
   import Dialog from "../Dialog.svelte";
-  import ToolTip from "../ToolTip/ToolTip.svelte";
-  import DragItem from "../Drop/DragItem.svelte";
-  import DropZone from "../Drop/DropZone.svelte";
+  import ToolTip from "../ToolTip/ToolTip.svelte";  
+  import { dragItem, dropZone } from "../../actions/dragDrop";
 
   //ICONS
   import ChevronLeft from "svelte-icons/fa/FaChevronLeft.svelte";
@@ -75,28 +74,20 @@
   class:showSidebar
 >
   <div class="actions mb-6">
-    <ToolTip
-      class="flex-1"
-      toolTipWidth="300px"
-      position={Positions.BottomCenter}
-    >
-      <input
-        type="text"
-        name="todo"
-        placeholder="+ New Group Todo"
-        class="text-slate-100"
-        on:keyup={addTodoGroup}
-      />
-      <span slot="toolTipText">
-        Type and press <kbd>Enter</kbd> to create new group
-      </span>
-    </ToolTip>
+    <input
+      type="text"
+      name="todo"
+      placeholder="+ New Group Todo"
+      class="text-slate-100"
+      on:keyup={addTodoGroup}
+    />
   </div>
   <div class="todo-container">
-    <DropZone on:drop={() => actions.dropTodoGroup()}>
+    <div use:dropZone on:drop={() => actions.dropTodoGroup()}>
       <nav class="todo-list flex flex-col gap-2">
         {#each [...$todoStore.todoGroups].reverse() as todoGroup (todoGroup.id)}
-          <DragItem
+          <div
+            use:dragItem
             on:dragstart={(event) => actions.dragStart(todoGroup.id)}
             on:dragover={(event) => actions.dragEnter(todoGroup.id)}
           >
@@ -107,10 +98,10 @@
               on:remove={() => showDialog(todoGroup.id)}
               on:edit={(event) => showModalEdit(event.detail)}
             />
-          </DragItem>
+          </div>
         {/each}
       </nav>
-    </DropZone>
+    </div>
   </div>
   <div class="todo-key" class:hiddenSidebar={!showSidebar}>
     <ToolTip position={Positions.TopLeft}>
@@ -147,7 +138,7 @@
   </div>
 </Dialog>
 
-<Dialog show={showEdit}  on:afterClose={() => showEdit = false}>
+<Dialog show={showEdit} on:afterClose={() => (showEdit = false)}>
   <div class="actions w-96">
     <textarea bind:value={editTodoGroup.name} />
   </div>
