@@ -90,9 +90,7 @@
             >
               <TodoItem
                 {todo}
-                on:remove={() => actions.removeTodo(todo.id)}
                 on:edit={(event) => showModalEdit(event.detail)}
-                on:update={(event) => actions.updateTodo(event.detail)}
                 on:active={() => actions.setActiveTodo(todo)}
                 isActive={todo.id === $todoStore.activeTodoItem.id}
               />

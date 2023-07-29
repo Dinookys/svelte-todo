@@ -2,7 +2,7 @@
   import { createEventDispatcher } from "svelte";
   import { fly } from "svelte/transition";
   import type { TodoItemSubItem, TodoItem as TodoType } from "./Types";
-  import { sanitizeHTML } from "./Todo";
+  import { actions, sanitizeHTML } from "./Todo";
 
   //ICONS
   import TrashIcon from "svelte-icons/fa/FaTrash.svelte";
@@ -28,7 +28,7 @@
   let isCompleted = todo.completed;
 
   $: if (isCompleted != todo.completed) {
-    dispatch("update", {
+    actions.updateTodo({
       ...todo,
       completed: isCompleted,
     });
@@ -83,7 +83,7 @@
     </button>
     <button
       class="text-white hover:text-red-500 transition-colors w-3 h-3"
-      on:click={() => dispatch("remove", todo.id)}
+      on:click={() => actions.removeTodo(todo.id)}
     >
       <TrashIcon />
     </button>

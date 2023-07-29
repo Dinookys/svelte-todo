@@ -12,11 +12,11 @@ export const todoStore = writable<TodoState>({
 export const persistLocalData = () => {
     onMount(() => {
         if (localStorage?.todoStore) {
-            todoStore.set({ ...JSON.parse(localStorage?.todoStore) });
+            todoStore.set(JSON.parse(localStorage.todoStore));
         }
 
-        todoStore.subscribe((store) => {
-            localStorage.setItem("todoStore", JSON.stringify(store));
+        todoStore.subscribe((state) => {
+            localStorage.setItem("todoStore", JSON.stringify(state));
         })
     })
 }
