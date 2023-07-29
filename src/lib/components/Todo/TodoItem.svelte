@@ -1,7 +1,8 @@
 <script lang="ts">
-  import { createEventDispatcher, tick } from "svelte";
+  import { createEventDispatcher } from "svelte";
   import { fly } from "svelte/transition";
   import type { TodoItemSubItem, TodoItem as TodoType } from "./Types";
+  import { sanitizeHTML } from "./Todo";
 
   //ICONS
   import TrashIcon from "svelte-icons/fa/FaTrash.svelte";
@@ -41,7 +42,16 @@
   class:completed={isCompleted}
   {...$$restProps}
 >
-  <div class="flex-shrink">
+  <div class="todo-text p-3 w-10/12">
+    <button
+      class="text text-left w-full group-hover:text-primary-600 {isActive &&
+        'text-primary-600'}"
+      on:click={() => dispatch("active")}
+    >
+      {@html sanitizeHTML(todo.text)}
+    </button>
+  </div>
+  <div class="flex-shrink mr-4">
     <button
       on:click|preventDefault={() => (isCompleted = !isCompleted)}
       class="text rounded-full border w-6 h-6 p-1 ml-3 border-none {isCompleted
@@ -60,29 +70,17 @@
     </button>
   </div>
 
-  <div class="todo-text p-3 w-10/12">
-    <button
-      class="text text-left w-full group-hover:text-primary-600 {isActive &&
-        'text-primary-600'}"
-      on:click={() => dispatch("active")}
-    >
-      {todo.text}
-    </button>
-  </div>
-
   <div class="flex items-center h-full space-x-5 pr-5 ml-auto">
     <span
       >({todo.items?.filter((task) => task.completed).length || 0}/{todo.items
         ?.length || 0})</span
     >
-    {#if !isCompleted}
-      <button
-        on:click={() => dispatch("edit", todo)}
-        class="text-white hover:text-blue-500 transition-colors w-3 h-3"
-      >
-        <PenIcon />
-      </button>
-    {/if}
+    <button
+      on:click={() => dispatch("edit", todo)}
+      class="text-white hover:text-blue-500 transition-colors w-3 h-3"
+    >
+      <PenIcon />
+    </button>
     <button
       class="text-white hover:text-red-500 transition-colors w-3 h-3"
       on:click={() => dispatch("remove", todo.id)}

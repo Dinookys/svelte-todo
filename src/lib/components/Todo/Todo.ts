@@ -129,3 +129,16 @@ export const actions = {
         })
     }
 }
+
+export const sanitizeHTML = (html: string) => {
+
+    const regexTextThrough = /\~(.+)\~/g;
+    const regexTextItalic = /\_(.+)\_/g;
+    const regexTextBold = /\*(.+)\*/g;
+
+    return html.replace(/<\/script>/g, '')
+        .replace(/\n/g, '<br/>')
+        .replace(regexTextThrough, "<s>$1</s>")
+        .replace(regexTextItalic, "<i>$1</i>")
+        .replace(regexTextBold, "<b>$1</b>")
+}

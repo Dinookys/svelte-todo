@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 
-.actions input,
-.actions textarea {
-    @apply w-full p-2 rounded-md m-0 bg-gray-600 border-2 border-primary-600 outline-none focus:border-primary-500 transition-colors
+input,
+textarea {
+    @apply p-2 rounded-md m-0 bg-gray-600 border-2 border-primary-600 outline-none focus:border-primary-500 transition-colors
 }
 
 .dragitem {
@@ -13,9 +13,6 @@
     transition: transform 0.3s ease;
 }
 
-.dragged {
-    /* @apply relative border border-primary-600 */
-}
 
 .dragenter:not(.dragged) {
     @apply scale-95

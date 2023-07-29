@@ -1,15 +1,15 @@
 <script lang="ts">
-  
-  import { fly } from "svelte/transition";
+  import { fade, fly } from "svelte/transition";
 
   import type { TodoItemSubItem, TodoItem } from "./Types";
-  import { actions } from "./Todo";
+  import { actions, sanitizeHTML } from "./Todo";
   import { todoStore } from "./TodoStore";
   import { dragItem, dropZone } from "../../actions/dragDrop";
 
   let todo = {} as TodoItem;
   let draggableItem = {} as TodoItemSubItem;
   let dropTargetId = 0;
+  let shortedTitle = "";
 
   const addTask = (event: KeyboardEvent) => {
     const input = event.target as HTMLInputElement;
@@ -58,17 +58,21 @@
     actions.updateTodo(todo);
   };
 
-  $: todo = $todoStore.activeTodoItem;
+  $: if(todo?.id != $todoStore.activeTodoItem?.id) {
+    todo = $todoStore.activeTodoItem
+  }
 
-  $: shortedTitle =
-    todo.text?.length > 50 ? `${todo.text.slice(0, 50)}...` : todo.text;
+  $: if (todo) {
+    shortedTitle =
+      todo.text?.length > 50 ? `${todo.text.slice(0, 50)}...` : todo.text;
+  }
 </script>
 
-<div
-  class="wrapper-tasks bg-slate-800 flex flex-col overflow-auto h-screen sticky top-0 text-white"
->
-  <div class="tasks p-3">
-    {#if todo}
+{#if todo && todo.items}
+  <div
+    class="wrapper-tasks bg-slate-800 flex flex-col overflow-auto h-screen sticky top-0 text-white"
+  >
+    <div class="tasks p-3">
       <div class="actions mb-4 pt-2">
         <input
           type="text"
@@ -77,8 +81,6 @@
           on:keyup={addTask}
         />
       </div>
-    {/if}
-    {#if todo?.text}
       <div
         class="border-b-primary-600 border-b overflow-x-hidden relative w-full font-bold h-12 my-4 pb-1 flex items-center tracking-widest"
       >
@@ -92,31 +94,34 @@
           </h3>
         {/key}
       </div>
-    {/if}
-    {#if todo && todo?.items?.length}
-      <ul use:dropZone on:drop={() => onDrop()}>
-        {#each [...todo.items].reverse() as item, i (item.id)}
-          <li
+      <div use:dropZone on:drop={() => onDrop()}>
+        {#each todo.items as item, i (item.id)}
+          <div
             use:dragItem
             on:dragstart={() => onDragStart(item)}
             on:dragover={() => onDragOver(item.id)}
-            class="flex justify-between p-2 bg-slate-600 rounded-md my-2"
-            in:fly={{ y: 300, delay: i * 100 }}
           >
-            <button
-              class="task-text text-white text-left {item.completed &&
-                'line-through text-slate-500'} "
-              on:click|preventDefault={(event) =>
-                updateTask({ ...item, completed: !item.completed })}
-              >{item.text}</button
+            <div
+              in:fade={{ delay: 50 * (i + 1), duration: 300 }}
+              out:fade={{ duration: 0 }}
+              class="flex justify-between p-2 bg-slate-600 rounded-md my-2"
             >
-            <button
-              class="hover:text-red-400 text-white"
-              on:click|preventDefault={() => removeTask(item.id)}>&times</button
-            >
-          </li>
+              <button
+                class="task-text text-white text-left {item.completed &&
+                  'line-through text-slate-500'} "
+                on:click|preventDefault={(event) =>
+                  updateTask({ ...item, completed: !item.completed })}
+                >{@html sanitizeHTML(item.text)}</button
+              >
+              <button
+                class="hover:text-red-400 text-white"
+                on:click|preventDefault={() => removeTask(item.id)}
+                >&times</button
+              >
+            </div>
+          </div>
         {/each}
-      </ul>
-    {/if}
+      </div>
+    </div>
   </div>
-</div>
+{/if}

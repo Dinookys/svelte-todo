@@ -12,6 +12,7 @@
   //ICONS
   import ChevronLeft from "svelte-icons/fa/FaChevronLeft.svelte";
   import ChevronRight from "svelte-icons/fa/FaChevronRight.svelte";
+  import { fade } from "svelte/transition";
 
   export let showSidebar = true;
 
@@ -78,21 +79,22 @@
       type="text"
       name="todo"
       placeholder="+ New Group Todo"
-      class="text-slate-100"
+      class="text-slate-100 w-full"
       on:keyup={addTodoGroup}
     />
   </div>
   <div class="todo-container">
     <div use:dropZone on:drop={() => actions.dropTodoGroup()}>
       <nav class="todo-list flex flex-col gap-2">
-        {#each [...$todoStore.todoGroups].reverse() as todoGroup (todoGroup.id)}
+        {#each [...$todoStore.todoGroups].reverse() as todoGroup, i (todoGroup.id)}
           <div
             use:dragItem
             on:dragstart={(event) => actions.dragStart(todoGroup.id)}
             on:dragover={(event) => actions.dragEnter(todoGroup.id)}
+            in:fade={{ delay: 50 * (i + 1), duration: 300 }} out:fade={{ duration: 0 }}
           >
             <TodoGroup
-              {todoGroup}
+              {todoGroup}              
               isActive={$todoStore.activeIDTodoGroup === todoGroup.id}
               on:active={() => active(todoGroup.id)}
               on:remove={() => showDialog(todoGroup.id)}

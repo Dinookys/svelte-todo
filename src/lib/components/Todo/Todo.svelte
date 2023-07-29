@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { fly } from "svelte/transition";
   import TodoGroups from "./TodoGroups.svelte";
   import TodoList from "./TodoList.svelte";
   import { todoStore, persistLocalData } from "./TodoStore";
@@ -17,16 +18,19 @@
 
 <svelte:window on:keyup={toggleSidebar} />
 
-<div class="wrapper" class:showSidebar>
+<div class="wrapper overflow-x-hidden" class:showSidebar>
   <TodoGroups bind:showSidebar />
-  <div class="w-full grow">
-    {#if $todoStore.activeTodoGroup?.id}
+  {#if $todoStore.activeTodoGroup?.id}
+    <div class="grow w-full">
       <TodoList />
+    </div>
+
+    {#if $todoStore.activeTodoItem.id}
+      <div class="grow w-1/3">
+        <TodoTasks />
+      </div>
     {/if}
-  </div>
-  <div class="tasks w-4/12">
-    <TodoTasks />
-  </div>
+  {/if}
 </div>
 
 <style>

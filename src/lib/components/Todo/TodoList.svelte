@@ -10,6 +10,8 @@
   let totalTodos = 0;
   let showModal = false;
   let todoToEdit = {} as TodoType;
+  let expanded = true;
+  let filterTodo = "";
 
   const addTodo = (event: KeyboardEvent) => {
     const input = event.target as HTMLInputElement;
@@ -38,13 +40,20 @@
 <div>
   <section class="wrapper-todos overflow-auto h-screen px-4 py-2">
     <div class="my-3 sticky top-0 z-40">
-      <div class="actions">
+      <div class="actions flex gap-4">
         <input
           type="text"
-          name="todo"
           placeholder="What needs to be done?"
           on:keyup={addTodo}
-          class="w-full text-slate-100"
+          class="text-slate-100 {expanded ? 'grow' : ''}"
+          on:focus={() => (expanded = true)}
+        />
+        <input
+          type="text"
+          placeholder="Search"
+          bind:value={filterTodo}
+          class="text-slate-100 {!expanded ? 'grow' : ''}"
+          on:focus={() => (expanded = false)}
         />
       </div>
     </div>
@@ -69,13 +78,16 @@
         class="todo-list flex flex-col gap-2"
         on:drop={() => actions.dropTodo()}
       >
-        {#each [...$todoStore.activeTodoGroup.todos].reverse() as todo, i (todo.id)}
+        {#each $todoStore.activeTodoGroup.todos.filter((todo) => todo.text.toLocaleLowerCase().includes(filterTodo)).reverse() as todo, i (todo.id)}
           <div
             use:dragItem
             on:dragstart={(event) => actions.dragStart(todo.id)}
             on:dragover={(event) => actions.dragEnter(todo.id)}
           >
-            <div in:fade={{ delay: 50 * (i + 1), duration: 300 }}>
+            <div
+              in:fade={{ delay: 50 * (i + 1), duration: 300 }}
+              out:fade={{ duration: 0 }}
+            >
               <TodoItem
                 {todo}
                 on:remove={() => actions.removeTodo(todo.id)}
