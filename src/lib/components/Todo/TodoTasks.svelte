@@ -16,13 +16,19 @@
 
     if (event.key !== "Enter") return;
 
-    todo.items.push({
-      text: input.value,
-      completed: false,
-      id: Date.now(),
-      createdAt: Date.now(),
-      updatedAt: Date.now(),
-    } as TodoItemSubItem);
+    todo = {
+      ...todo,
+      items: [
+        {
+          text: input.value,
+          completed: false,
+          id: Date.now(),
+          createdAt: Date.now(),
+          updatedAt: Date.now(),
+        },
+        ...todo.items,
+      ],
+    };
 
     input.value = "";
 
@@ -58,8 +64,8 @@
     actions.updateTodo(todo);
   };
 
-  $: if(todo?.id != $todoStore.activeTodoItem?.id) {
-    todo = $todoStore.activeTodoItem
+  $: if (todo?.id != $todoStore.activeTodoItem?.id) {
+    todo = $todoStore.activeTodoItem;
   }
 
   $: if (todo) {

@@ -15,14 +15,17 @@
 </script>
 
 <div
-  class="todo-group flex hover:bg-slate-600 group  transition-colors rounded-md {isActive
+  role="button"
+  tabindex="0"
+  class="todo-group flex hover:bg-slate-600 group transition-colors rounded-md {isActive
     ? 'bg-slate-600 text-primary-600'
     : 'bg-slate-700 text-white'}"
 >
   <button
     class="grow text-left p-2"
     on:click={() => dispatch("active", todoGroup)}
-    class:active={isActive}>{todoGroup.name}  <small>({todoGroup.todos.length})</small></button
+    class:active={isActive}
+    >{todoGroup.name} <small>({todoGroup.todos.length})</small></button
   >
   <button
     class="p-2 bg-transparent text-white border-l border-l-slate-800 hover:text-blue-500 transition-colors"

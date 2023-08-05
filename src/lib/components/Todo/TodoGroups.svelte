@@ -6,7 +6,7 @@
 
   import TodoGroup from "./TodoGroup.svelte";
   import Dialog from "../Dialog.svelte";
-  import ToolTip from "../ToolTip/ToolTip.svelte";  
+  import ToolTip from "../ToolTip/ToolTip.svelte";
   import { dragItem, dropZone } from "../../actions/dragDrop";
 
   //ICONS
@@ -62,11 +62,6 @@
     }
   };
 
-  const closeModalEdit = () => {
-    editTodoGroup = {} as TodoGroupItem;
-    showEdit = false;
-  };
-
   $: actions.updateTodoGroup(editTodoGroup);
 </script>
 
@@ -91,10 +86,11 @@
             use:dragItem
             on:dragstart={(event) => actions.dragStart(todoGroup.id)}
             on:dragover={(event) => actions.dragEnter(todoGroup.id)}
-            in:fade={{ delay: 50 * (i + 1), duration: 300 }} out:fade={{ duration: 0 }}
+            in:fade={{ delay: 50 * (i + 1), duration: 300 }}
+            out:fade={{ duration: 0 }}
           >
             <TodoGroup
-              {todoGroup}              
+              {todoGroup}
               isActive={$todoStore.activeIDTodoGroup === todoGroup.id}
               on:active={() => active(todoGroup.id)}
               on:remove={() => showDialog(todoGroup.id)}
@@ -141,11 +137,9 @@
 </Dialog>
 
 <Dialog show={showEdit} on:afterClose={() => (showEdit = false)}>
+  <div class="text-center mb-4">Group</div>
   <div class="actions w-96">
-    <textarea bind:value={editTodoGroup.name} />
-  </div>
-  <div class="text-center">
-    <button type="button" on:click={closeModalEdit}>Close</button>
+    <textarea bind:value={editTodoGroup.name} class="w-full" />
   </div>
 </Dialog>
 

@@ -38,7 +38,10 @@
     use:clickOutside={closeModal}
   >
     <div
-      class="box-confirmation-content bg-slate-600 text-white rounded-md border-slate-500 border"
+      {...{
+        ...$$restProps,
+        class: `box-confirmation-content bg-slate-600 text-white rounded-md border-slate-500 border ${$$restProps.class}`,
+      }}
     >
       {#if showTopCloseButton}
         <div class="box-confirmation-action mx-2">
@@ -71,10 +74,8 @@
   }
 
   .box-confirmation-content {
-    box-shadow: rgba(0, 0, 0, 0.4);
-    min-width: 12rem;
-    max-width: 30rem;
-    margin-top: 10px;
+    min-width: 12rem;    
+    margin-top: 15px;
   }
 
   .box-confirmation-content .box-confirmation-body {

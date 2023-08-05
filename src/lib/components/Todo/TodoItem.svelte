@@ -39,6 +39,8 @@
   class="todo-item text-xs flex items-center rounded-md text-slate-50 transition-colors hover:bg-slate-800 group {isActive
     ? 'bg-slate-800'
     : 'bg-slate-600'}"
+  role="button"
+  tabindex="0"
   class:completed={isCompleted}
   {...$$restProps}
 >
