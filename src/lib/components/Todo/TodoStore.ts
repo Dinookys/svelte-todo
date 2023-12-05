@@ -9,14 +9,14 @@ export const todoStore = writable<TodoState>({
     activeTodoItem: {} as TodoItem
 });
 
-export const persistLocalData = () => {
-    onMount(() => {
-        if (localStorage?.todoStore) {
-            todoStore.set(JSON.parse(localStorage.todoStore));
-        }
+// export const persistLocalData = () => {
+//     onMount(() => {
+//         if (localStorage?.todoStore) {
+//             todoStore.set(JSON.parse(localStorage.todoStore));
+//         }
 
-        todoStore.subscribe((state) => {
-            localStorage.setItem("todoStore", JSON.stringify(state));
-        })
-    })
-}
+//         todoStore.subscribe((state) => {
+//             localStorage.setItem("todoStore", JSON.stringify(state));
+//         })
+//     })
+// }
